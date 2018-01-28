@@ -1,0 +1,48 @@
+ngb-alert {
+	display: block;
+	padding: 30px;
+	position: fixed;
+	top: 30px;
+	left: 0;
+	box-sizing: border-box;
+	z-index: 100;
+	width: 100%;
+}
+
+.container {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.container:first-of-type {
+	margin-top: 10px;
+}
+
+h4 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.container .row {
+	margin-bottom: 10px;
+}
+
+.modal-body .input-group .input-group-addon:first-child {
+	min-width: 120px;
+}
+
+.table td {
+	vertical-align: middle;
+}
+
+.table.edit td:nth-child(2) {
+	width: 100px;
+}
+
+.table.edit thead {
+	position: sticky;
+	top: 0;
+	background: linear-gradient(to top, #ECEEEF 2px, white 2px, white);	
+}

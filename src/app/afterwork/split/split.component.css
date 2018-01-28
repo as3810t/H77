@@ -1,0 +1,54 @@
+ngb-alert {
+	display: block;
+	padding: 30px;
+	position: fixed;
+	top: 30px;
+	left: 0;
+	box-sizing: border-box;
+	z-index: 100;
+	width: 100%;
+}
+
+.container {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.container:first-of-type {
+	margin-top: 10px;
+}
+
+h4 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.container .row {
+	margin-bottom: 10px;
+}
+
+.splitBar div:nth-child(4n+0) {
+	background-color: #5cb85c !important;
+}
+
+.splitBar div:nth-child(4n+1) {
+	background-color: #5bc0de !important;
+}
+
+.splitBar div:nth-child(4n+2) {
+	background-color: #f0ad4e !important;
+}
+
+.splitBar div:nth-child(4n+3) {
+	background-color: #d9534f !important;
+}
+
+.modal-body .input-group .input-group-addon:first-child {
+	min-width: 120px;
+}
+
+.table td {
+	vertical-align: middle;
+}

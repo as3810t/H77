@@ -1,0 +1,59 @@
+<ngb-alert [type]="errorMessage[0] == '@' ? 'success' : 'danger'" [hidden]="errorMessage == ''" (close)="errorMessage = ''">{{ errorMessage[0] == '@' ? errorMessage.slice(1) : errorMessage }}</ngb-alert>
+<div class="jumbotron">
+	<h4>Billentyűk</h4>
+	<div ngbDropdown class="d-inline-block">
+		<button class="btn btn-outline-primary" id="loadKeyboard" ngbDropdownToggle>Billentyűk betöltése</button>
+		<div class="dropdown-menu" aria-labelledby="loadKeyboard">
+	 		<button class="dropdown-item" *ngFor="let recent of recents" (click)="openFile(recent.path)">{{ recent.filename }}</button>
+			<button class="dropdown-item" (click)="openFileDialog()">Fájl kiválasztása</button>
+		</div>
+	</div>
+	<button type="button" class="btn btn-primary" (click)="createNewBoard()">Új billentyűfájl létrehozása</button>
+</div>
+<div class="jumbotron" [hidden]="saveFile == ''">
+	<h4>
+		<span placement="right" ngbTooltip="{{ saved ? '' : 'Elmentetlen változtatások. Kilépés esetén az elmentetlen változtatások elvesznek.' }}" [ngClass]="{'warning': !saved}">{{ keyboard.name }}{{ saved ? '' : '*' }}</span>
+		<button class="btn btn-primary" (click)="saveBoard()">Mentés</button>
+		<button class="btn btn-secondary" (click)="restoreBoard()">Visszaállítás</button>
+	</h4>
+	<table class="table">
+		<thead>
+			<tr>
+				<th><span placement="right" ngbTooltip="A billentyű, aminek lenyomása regisztrálva lesz">Billentyű</span></th>
+				<th><span placement="right" ngbTooltip="A lenyomáshoz rendelt név">Név</span></th>
+				<th><span placement="right" ngbTooltip="A lenyomás típusa; Intervallum (I) vagy Esemény (E)">Típus</span></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let key of keyboard; let i = $index;">
+				<td>
+					<div class="input-group">
+						<input class="form-control" maxlength="1" [(ngModel)]="key.key" (change)="keyChange($event); saved = false;">
+					</div>
+				</td>
+				<td>
+					<div class="input-group">
+						<input class="form-control" [(ngModel)]="key.name" (change)="saved = false">
+					</div>
+				</td>
+				<td>
+					<div class="input-group" [(ngModel)]="key.type" ngbRadioGroup name="type{{i}}">
+						<label ngbButtonLabel class="btn-secondary">
+							<input ngbButton type="radio" [value]="'i'" (change)="saved = false"> I
+						</label>
+						<label ngbButtonLabel class="btn-secondary">
+							<input ngbButton type="radio" [value]="'e'" (change)="saved = false"> E
+						</label>
+					</div>
+				</td>
+				<td>
+					<button class="btn btn-secondary" placement="right" ngbTooltip="Eltávolítás" (click)="removeKey(i)">X</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3"><button class="btn btn-primary" placement="right" ngbTooltip="Hozzáadás" (click)="addKey()">+</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

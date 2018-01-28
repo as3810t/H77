@@ -1,0 +1,42 @@
+ngb-alert {
+	display: block;
+	padding: 30px;
+	position: fixed;
+	top: 30px;
+	left: 0;
+	box-sizing: border-box;
+	z-index: 100;
+	width: 100%;
+}
+
+.jumbotron {
+	max-width: 20cm;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 15px;
+}
+
+.jumbotron:first-of-type {
+	margin-top: 30px;
+}
+
+h4 span.warning {
+	color: #ec971f;
+}
+
+.jumbotron:first-child {
+	margin-top: 15px;
+}
+
+.input-group {
+	margin-bottom: 15px;
+}
+
+table tr td {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+table tr td:first-child, table tr th:first-child {
+	width: 40px;
+}

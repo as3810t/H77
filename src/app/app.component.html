@@ -1,0 +1,37 @@
+<ngb-tabset #tabSet="ngbTabset" [destroyOnHide]="false" (tabChange)="beforeChange($event)">
+	<ngb-tab title="Beállítások" id="tabSettings">
+		<ng-template ngbTabContent>
+			<app-settings #tabSettings (settingsChange)="settings = $event"></app-settings>
+		</ng-template>
+	</ngb-tab>
+	<ngb-tab title="Billentyűk" id="tabKeyboard">
+		<ng-template ngbTabContent>
+			<app-keyboard #tabKeyboard (keyboardChange)="keyboard = $event"></app-keyboard>
+		</ng-template>
+	</ngb-tab>
+	<ngb-tab title="Elemzés" id="tabAnalysis">
+		<ng-template ngbTabContent>
+			<app-analysis #tabAnalysis [settings]="settings" [keyboard]="keyboard"></app-analysis>
+		</ng-template>
+	</ngb-tab>
+	<ngb-tab title="Utómunkálatok" id="tabAfterwork">
+		<ng-template ngbTabContent>
+			<app-afterwork #tabAfterwork [settings]="settings"></app-afterwork>
+		</ng-template>
+	</ngb-tab>
+</ngb-tabset>
+
+<ng-template #about let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title">Névjegy</h4>
+		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<h1>H77+</h1>
+		<p><b>Verzió:</b> 0.1</p>
+		<p>Minden jog fenntartva © 2017 Dobos-Kovács Mihály</p>
+		<p><b>Kapcsolat:</b> <a href="mailto:dkmisu@gmail.com">dkmisu@gmail.com</a></p>
+	</div>
+</ng-template>

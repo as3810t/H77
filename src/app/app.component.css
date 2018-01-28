@@ -1,0 +1,8 @@
+.mdl-layout__tab:hover {
+	text-decoration: none;
+	color: rgba(255,255,255,.6);
+}
+
+.mdl-layout__tab:focus {
+	text-decoration: none;
+}

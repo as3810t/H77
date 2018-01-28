@@ -1,0 +1,86 @@
+<ngb-alert [type]="errorMessage[0] == '@' ? 'success' : 'danger'" [hidden]="errorMessage == ''" (close)="errorMessage = ''">{{ errorMessage[0] == '@' ? errorMessage.slice(1) : errorMessage }}</ngb-alert>
+<div class="jumbotron">
+	<h4>Beállítások</h4>
+	<div ngbDropdown class="d-inline-block">
+	  <button class="btn btn-outline-primary" id="loadSettings" ngbDropdownToggle>Beállítások betöltése</button>
+	  <div class="dropdown-menu" aria-labelledby="loadSettings">
+	    <button class="dropdown-item" *ngFor="let recent of recents" (click)="openFile(recent.path)">{{ recent.filename }}</button>
+	    <button class="dropdown-item" (click)="openFileDialog()">Fájl kiválasztása</button>
+	  </div>
+	</div>
+	<button type="button" class="btn btn-primary" (click)="createNewSettings()">Új beállítás létrehozása</button>
+</div>
+<div class="jumbotron" [hidden]="saveFile == ''">
+	<h4>
+		<span placement="right" ngbTooltip="{{ saved ? '' : 'Elmentetlen változtatások. Kilépés esetén az elmentetlen változtatások elvesznek.' }}" [ngClass]="{'warning': !saved}">{{ settings.name }}{{ saved ? '' : '*' }}</span>
+		<button class="btn btn-primary" (click)="saveSettings()">Mentés</button>
+		<button class="btn btn-secondary" (click)="restoreSettings()">Visszaállítás</button>
+	</h4>
+	<div class="input-group">
+		<span class="input-group-addon" id="sizing-addon2" placement="right" ngbTooltip="A mappa, amibe a mérési adatokat tartalmazó fájlok mentésre kerülnek majd">Mentési mappa</span>
+		<span class="form-control" placeholder="Mappa választása" aria-describedby="sizing-addon2" placement="right" ngbTooltip="{{settings.folder}}">{{ settings.folder }}</span>
+		<span class="input-group-btn">
+        	<button class="btn btn-secondary" type="button" (click)="chooseSaveFolder()">Mappa választása</button>
+    	</span>
+		<span class="input-group-btn">
+        	<button class="btn btn-secondary" type="button" (click)="openSaveFolder()">Mappa megnyitása</button>
+    	</span>
+	</div>
+	<div class="input-group">
+		<span class="input-group-addon" id="sizing-addon3" placement="right" ngbTooltip="Az az azonosító, ami a mérési adatokat tartalmazó fájlok nevében megtalálható lesz">Azonosító</span>
+		<input type="text" class="form-control" placeholder="Azonosító" aria-describedby="sizing-addon3" [(ngModel)]="settings.acronym" maxlength="25">
+	</div>
+	<div class="input-group" [(ngModel)]="settings.video" ngbRadioGroup name="video">
+		<label ngbButtonLabel class="btn-secondary" placement="right" ngbTooltip="Elemzés során az elemzendő videót külön kell megnyitni">
+			<input ngbButton type="radio" [value]="false"> Videó nélkül
+		</label>
+		<label ngbButtonLabel class="btn-secondary" placement="right" ngbTooltip="Elemzés során az elemzendő videó a programon belül lesz megnyitva">
+			<input ngbButton type="radio" [value]="true"> Videó csatolása
+		</label>
+	</div>
+	<div class="input-group" [hidden]="settings.video == true">
+		<span class="input-group-addon" id="sizing-addon4" placement="right" ngbTooltip="A kísérlet hossza másodpercekben mérve">Kísérlet hossza</span>
+		<input type="number" class="form-control" placeholder="Hossz" aria-describedby="sizing-addon4" [(ngModel)]="settings.length">
+		<span class="input-group-addon">mp</span>
+	</div>
+</div>
+<div class="jumbotron" [hidden]="settings.video != true || saveFile == ''">
+	<h4>Videó</h4>
+	<div class="input-group">
+		<span class="input-group-addon" id="sizing-addon5" placement="right" ngbTooltip="A videó fájl, ami elemezve lesz">Videó</span>
+		<span class="form-control" placeholder="Videó választása" aria-describedby="sizing-addon5" placement="right" ngbTooltip="{{settings.videoFile}}">{{ settings.videoFile }}</span>
+		<span class="input-group-btn">
+			<button class="btn btn-secondary" type="button" (click)="chooseVideo()">Videó megnyitása</button>
+		</span>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="sizing-addon5" placement="right" ngbTooltip="A kísérlet kezdőpontja a videón">Kezdőpont</span>
+					<input type="number" class="form-control" placeholder="Kezdőpont" aria-describedby="sizing-addon5" [(ngModel)]="settings.begin">
+					<span class="input-group-addon">mp</span>
+					<span class="input-group-btn">
+						<button class="btn btn-secondary" type="button" (click)="markBegin()">Kijelölés</button>
+					</span>
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon" id="sizing-addon6" placement="right" ngbTooltip="A kísérlet végpontja a videón">Végpont</span>
+					<input type="number" class="form-control" placeholder="Végpont" aria-describedby="sizing-addon6" [(ngModel)]="settings.end">
+					<span class="input-group-addon">mp</span>
+					<span class="input-group-btn">
+						<button class="btn btn-secondary" type="button" (click)="markEnd()">Kijelölés</button>
+					</span>
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon" id="sizing-addon7" placement="right" ngbTooltip="A kísérlet hossza másodpercekben mérve">Kísérlet hossza</span>
+					<input type="number" class="form-control" placeholder="Hossz" aria-describedby="sizing-addon7" [(ngModel)]="settings.length">
+					<span class="input-group-addon">mp</span>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<video #player controls></video>
+			</div>
+		</div>
+	</div>
+</div>

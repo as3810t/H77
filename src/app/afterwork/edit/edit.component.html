@@ -1,0 +1,271 @@
+<ngb-alert [type]="errorMessage[0] == '@' ? 'success' : 'danger'" [hidden]="errorMessage == ''" (close)="errorMessage = ''">{{ errorMessage[0] == '@' ? errorMessage.slice(1) : errorMessage }}</ngb-alert>
+<div class="input-group">
+	<span class="input-group-addon" placement="right" ngbTooltip="A mérés adatait tartalmazó xlsx vagy ods fájl">Mérés fájl</span>
+	<span class="form-control" name="editFileName" placement="bottom" ngbTooltip="{{ editFileName }}">{{ editFileName }}</span>
+	<span class="input-group-btn">
+		<button class="btn btn-secondary" type="button" (click)="editOpenFile()">Fájl megnyitása</button>
+	</span>
+</div>
+<div class="container" [hidden]="editFileName == ''">
+	<div class="row">
+		<div class="col">
+			<p>Kísérlet hossza: {{ editLen }} mp</p>
+		</div>
+		<div class="col">
+			<table>
+				<tr>
+					<th>Bill.</th>
+					<th>Esemény</th>
+				</tr>
+				<tr *ngFor="let key of editKeyboard">
+					<td>{{ key.key }}</td>
+					<td>{{ key.name }} (<i>{{ key.type }}</i>)</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="input-group" [hidden]="editFileName == ''">
+	<span class="input-group-addon" placement="right" ngbTooltip="A fájl típusa">Mentés típusa</span>
+	<select class="form-control" name="editFileType" [(ngModel)]="editFileType">
+		<option value="xlsx" selected>Excel (xlsx)</option>
+		<option value="ods">Libre Office (ods)</option>
+		<option value="csv">Nyers (csv)</option>
+	</select>
+	<span class="input-group-btn">
+		<button class="btn btn-secondary" (click)="editDropFile()">Elvetés</button>
+	</span>
+	<span class="input-group-btn">
+		<button class="btn btn-primary" (click)="editSaveFile()">Mentés</button>
+	</span>
+</div>
+
+<hr [hidden]="editFileName == ''">
+
+<div class="input-group" [hidden]="editFileName == ''">
+	<span class="input-group-addon" placement="right" ngbTooltip="Azonosító, aminek az adatai szerkesztve lesznek">Azonosító</span>
+	<select class="form-control" name="editIdent" [(ngModel)]="editIdent">
+		<option value="*">Minden</option>
+		<option *ngFor="let ident of editIdents" [value]="ident">{{ ident }}</option>
+	</select>
+</div>
+
+<table class="table edit" [hidden]="editFileName == ''">
+	<thead>
+		<tr>
+			<th><span placement="right" ngbTooltip="Sorszám">#</span></th>
+			<th><span placement="right" ngbTooltip="Bekövetkezett esemény billentyű kódja">Billentyű</span></th>
+			<th><span placement="right" ngbTooltip="Bekövetkezett esemény neve (típusa)">Név</span></th>
+			<th><span placement="right" ngbTooltip="Bekövetkezett esemény típusának előfordulása">Sorrend</span></th>
+			<th><span placement="right" ngbTooltip="Bekövetkezés időpontja">Időpont</span></th>
+			<th><span placement="right" ngbTooltip="Azonosító, amihez az esemény tartozik">Azonosító</span></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let event of eventList.reverse(); let i = index" [hidden]="editIdent != '*' && event.ident != editIdent">
+			<td>{{ eventList.length - i }}</td>
+			<td><input type="text" maxlength="1" name="key{{i}}" class="form-control" [(ngModel)]="event.key" (change)="recalculateEventList()"></td>
+			<td>{{ event.name }} (<i>{{ event.type }}</i>)</td>
+			<td>{{ event.freq }}</td>
+			<td><input type="number" min="0" name="time{{i}}" class="form-control" [(ngModel)]="event.time" (change)="recalculateEventList()"></td>
+			<td>
+				<select name="ident{{i}}" class="form-control" [(ngModel)]="event.ident" (change)="recalculateEventList()">
+					<option *ngFor="let ident of editIdents" [value]="ident">{{ ident }}</option>
+				</select>
+			</td>
+			<td><button class="btn btn-secondary" (click)="removeFromEventList(eventList.length - i - 1)" placement="bottom" ngbTooltip="Eltávolítás">x</button></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="input-group" [hidden]="editFileName == ''">
+	<span class="input-group-addon" placement="right" ngbTooltip="Az esemény billentyű kódja">Billentyű</span>
+	<input type="text" maxlength="1" class="form-control" name="addEventListKey" [(ngModel)]="addEventListKey">
+	<span class="input-group-addon" placement="right" ngbTooltip="Az esemény bekövetkezésének ideje">Időpont</span>
+	<input type="number" min="1" class="form-control" name="addEventListTime" [(ngModel)]="addEventListTime">
+	<span class="input-group-addon" placement="right" ngbTooltip="Az eseményhez tartozó azonosító">Azonosító</span>
+	<select name="addEventListIdent" class="form-control" [(ngModel)]="addEventListIdent">
+		<option *ngFor="let ident of editIdents" [value]="ident">{{ ident }}</option>
+	</select>
+	<span class="input-group-btn">
+		<button class="btn btn-secondary" (click)="addToEventList()" placement="top" ngbTooltip="Hozzáadás">+</button>
+	</span>
+</div>
+
+<ng-template #importFile let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title">Importálás</h4>
+		<button type="button" class="close" aria-label="Close" (click)="d()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<div class="input-group">
+			<span class="input-group-addon" placement="right" ngbTooltip="A mérés adatait tartalmazó xlsx vagy odt fájl">Mérés fájl</span>
+			<span type="text" disabled class="form-control" name="openFileName" placement="bottom" ngbTooltip="{{ openFileName }}">{{ openFileName }}</span>
+		</div>
+
+		<div class="container">
+			<div class="row"><div class="col"><h4>Eseménylista</h4></div></div>
+			<div class="row">
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak a munkalapnak a neve, amin az események listája található">Munkalap</span>
+						<select name="openSheet" class="form-control" [(ngModel)]="openSheet">
+							<option *ngFor="let s of openSheets" [value]="s">{{ s }}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az adatsornak a sorszáma, ami elsőnek adatot tartalmaz (fejléc utáni első)">Első adatsor</span>
+						<input type="number" name="openRow" class="form-control" [(ngModel)]="openRow">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az oszlopnak a betűjele, ami az adatsor azonosító számait tartalmazza">#</span>
+						<input type="text" name="openID" class="form-control" [(ngModel)]="openID">
+					</div>
+				</div>
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az oszlopnak a betűjele, ami az eseményhez rendelt billentyűt tartalmazza ">Billentyű</span>
+						<input type="text" name="openKey" class="form-control" [(ngModel)]="openKey">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az oszlopnak a betűjele, ami az esemény tevét tartalmazza">Név</span>
+						<input type="text" name="openName" class="form-control" [(ngModel)]="openName">
+					</div>
+				</div>
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az oszlopnak a betűjele, ami az esemény típusát tartalmazza">Típus</span>
+						<input type="text" name="openType" class="form-control" [(ngModel)]="openType">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az oszlopnak a betűjele, az esemény sorszámát tartalmazza">Sorszám</span>
+						<input type="text" name="openFreq" class="form-control" [(ngModel)]="openFreq">
+					</div>
+				</div>
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az oszlopnak a betűjele, ami az esemény bekövetkezésének idejét tartalmazza">Idő</span>
+						<input type="text" name="openTime" class="form-control" [(ngModel)]="openTime">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az oszlopnak a betűjele, ami az eseményhez tartozó mérés azonosítót tartalmazza">Azonosító</span>
+						<input type="text" name="openIdent" class="form-control" [(ngModel)]="openIdent">
+					</div>
+				</div>
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak a cellána a címe, ami a kísérlet hosszát tartalmazza">Kísérlet hossza</span>
+						<input type="text" name="openLength" class="form-control" [(ngModel)]="openLength">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row"><div class="col"><h4>Billentyűk</h4></div></div>
+			<div class="row">
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak a munkalapnak a neve, amin az események felsorolása található">Billentyűlap</span>
+						<select name="openKeyboard" class="form-control" [(ngModel)]="openKeyboard">
+							<option *ngFor="let s of openSheets" [value]="s">{{ s }}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az adatsornak a sorszáma, ami elsőnek adatot tartalmaz (fejléc utáni első)">Első adatsor</span>
+						<input type="text" name="openKeyboardRow" class="form-control" [(ngModel)]="openKeyboardRow">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az oszlopnak a betűjele, ami az eseményhez rendelt billentyűt tartalmazza ">Billentyű</span>
+						<input type="text" name="openKeyboardKey" class="form-control" [(ngModel)]="openKeyboardKey">
+					</div>
+				</div>
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az oszlopnak a betűjele, ami az esemény tevét tartalmazza">Név</span>
+						<input type="text" name="openKeyboardName" class="form-control" [(ngModel)]="openKeyboardName">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="input-group">
+						<span class="input-group-addon" placement="right" ngbTooltip="Annak az oszlopnak a betűjele, ami az esemény típusát tartalmazza">Típus</span>
+						<input type="text" name="openKeyboardType" class="form-control" [(ngModel)]="openKeyboardType">
+					</div>
+				</div>
+				<div class="col">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" (click)="d()">Mégse</button>
+		<button type="button" class="btn btn-primary" (click)="c()">Importálás</button>
+	</div>
+</ng-template>
+
+<ng-template #saveSuccess let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title">Sikeres mentés</h4>
+		<button type="button" class="close" aria-label="Close" (click)="d()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<div class="input-group">
+			<span class="input-group-addon" placement="right" ngbTooltip="A mappa, ahova a kivágott mérési fájl mentve lesz">Mentési mappa</span>
+			<span type="text" disabled class="form-control" name="saveFolderName" placement="bottom" ngbTooltip="{{ saveFolderName }}">{{ saveFolderName }}</span>
+			<span class="input-group-btn">
+				<button class="btn btn-secondary" type="button" (click)="saveShowFolder()">Mappa megnyitása</button>
+			</span>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Tól-Ig</th>
+					<th>Fájlnév</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>0 mp - {{ editLen }} mp</td>
+					<td><span placement="bottom" ngbTooltip="Kattintás a megtekintéshez">{{ saveFileName }}</span> <button class="btn btn-secondary" (click)="saveShowFile()">Megtekintés</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" (click)="c()">Rendben</button>
+	</div>
+</ng-template>
