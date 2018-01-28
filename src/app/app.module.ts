@@ -2,6 +2,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -15,6 +18,10 @@ import { EditComponent } from './afterwork/edit/edit.component';
 
 import { OpenFileService } from './dialogs/openFile.service';
 import { ExportFileService } from './dialogs/exportFile.service';
+
+export function HttpLoaderFactory(http: HttpClient) {
+	return new TranslateHttpLoader(http, './assets/lang/', '.json');
+}
 
 @NgModule({
 	declarations: [
@@ -31,7 +38,15 @@ import { ExportFileService } from './dialogs/exportFile.service';
 	imports: [
 		NgbModule.forRoot(),
 		BrowserModule,
-		FormsModule
+		FormsModule,
+		HttpClientModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory,
+				deps: [HttpClient]
+			}
+		})
 	],
 	providers: [
 		OpenFileService,
