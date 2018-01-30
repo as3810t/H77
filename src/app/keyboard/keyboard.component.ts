@@ -64,7 +64,7 @@ export class KeyboardComponent {
 			get: (target, property) => {
 				return target[property];
 			},
-			set: (target, property, value, receiver) => {
+			set: (target, property, value) => {
 				target[property] = value;
 				self.saved = false;
 				self.keyboardChange.emit(target);
@@ -76,11 +76,11 @@ export class KeyboardComponent {
 	createNewBoard() {
 		this.errorMessage = '';
 
-		for(; 0 < this.keyboard.length;) {
+		for (; 0 < this.keyboard.length;) {
 			this.keyboard.pop();
 		}
 
-		this.keyboard.name = 'Új fájl';
+		this.keyboard.name = this.translate.instant('keyboard.newFile');
 		this.saveFile = '---NEW---';
 		this.saved = true;
 	}
@@ -92,7 +92,7 @@ export class KeyboardComponent {
 			{name: 'Minden fájl', extensions: ['*']}
 		], ['openFile']).then((name) => {
 			this.openFile(name);
-		}).catch((e)=>{});
+		}).catch(() => { });
 	}
 
 	checkBoard(board) {
@@ -172,7 +172,7 @@ export class KeyboardComponent {
 			{name: 'Minden fájl', extensions: ['*']}
 		]).then((fileName) => {
 			this.exportFile(fileName);
-		}).catch((e) => {})
+		}).catch(() => { })
 	}
 
 	exportFile(saveFile) {
@@ -236,8 +236,8 @@ export class KeyboardComponent {
 		this.keyboard.splice(i, 1);
 	}
 
-	keyChange(event) {
-		for(var i = 0; i < this.keyboard.length; i++) {
+	keyChange() {
+		for (var i = 0; i < this.keyboard.length; i++) {
 			this.keyboard[i].key = /^[a-z0-9]$/i.test(this.keyboard[i].key) ? this.keyboard[i].key.toUpperCase() : '';
 		}
 	}

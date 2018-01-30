@@ -61,7 +61,7 @@ export class AppComponent {
 	}
 
 	ngOnInit() {
-		window.onbeforeunload = (e) => {
+		window.onbeforeunload = () => {
 			if (this.tabSettings.canClose() == false) {
 				this.ngzone.run(() => { this.ngbTabset.select('tabSettings'); });
 				return window.electron.remote.dialog.showMessageBox(window.electron.remote.getCurrentWindow(), {
