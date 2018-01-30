@@ -36,10 +36,10 @@ export class OpenFileService {
 
 	showDialog(options) {
 		if (options.async == true) {
-			return new Promise((resolve, reject) => {
+			return new Promise((resolve) => {
 				window.electron.remote.dialog.showMessageBox(options, (response) => {
 					resolve(response);
-				})
+				});
 			})
 		}
 		else {
