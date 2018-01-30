@@ -73,5 +73,24 @@
 		"fileNotExists": "A fájl nem létezik, vagy nincs jogosultság az elérésére.",
 		"saveFileNotWritable": "A billentyűzetfájl nem írható",
 		"successSave": "Sikeres mentés"
+	},
+	"dialogs": {
+		"result": "Eredmény",
+		"identifier": "Azonosító",
+		"latency": "Latencia",
+		"frequency": "Frekvencia",
+		"time": "Idő",
+		"timepercentage": "Időszázalék",
+		"timeMU": "mp",
+		"eventList": "Eseménylista",
+		"key": "Billentyű",
+		"name": "Név",
+		"type": "Típus",
+		"number": "Sorszám",
+		"timestamp": "Időpont",
+		"length": "Kísérlet hossza",
+		"events": "Események",
+		"openFile": "Fájl megnyitása",
+		"saveFile": "Fájl mentése"
 	}
 }

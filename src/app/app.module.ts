@@ -18,6 +18,7 @@ import { EditComponent } from './afterwork/edit/edit.component';
 
 import { OpenFileService } from './dialogs/openFile.service';
 import { ExportFileService } from './dialogs/exportFile.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/lang/', '.json');
@@ -49,6 +50,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		})
 	],
 	providers: [
+		TranslateService,
 		OpenFileService,
 		ExportFileService
 	],

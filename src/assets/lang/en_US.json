@@ -73,5 +73,24 @@
 		"fileNotExists": "The file does not exist, or you do not have the permission to access it.",
 		"saveFileNotWritable": "The settings file is not writable",
 		"successSave": "Successful save"
+	},
+	"dialogs": {
+		"result": "Result",
+		"identifier": "Identifier",
+		"latency": "Latency",
+		"frequency": "Frequency",
+		"time": "Time",
+		"timepercentage": "Timepercentage",
+		"timeMU": "s",
+		"eventList": "Occurence list",
+		"key": "Key",
+		"name": "Name",
+		"type": "Type",
+		"number": "Number",
+		"timestamp": "Timestamp",
+		"length": "Length of measurement",
+		"events": "Occurences",
+		"openFile": "Open file",
+		"saveFile": "Save file"
 	}
 }
