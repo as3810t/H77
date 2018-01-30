@@ -1,8 +1,9 @@
-import { Component, Input, Output, EventEmitter, ViewChild, NgZone } from '@angular/core';
+import { Component, Output, EventEmitter, NgZone } from '@angular/core';
 import { OpenFileService } from './../dialogs/openFile.service';
+import { TranslateService } from '@ngx-translate/core';
 
-declare var localStorage :any;
-declare var window :any;
+declare var localStorage: any;
+declare var window: any;
 
 @Component({
 	moduleId: module.id,
@@ -11,9 +12,9 @@ declare var window :any;
 	styleUrls: ['./keyboard.component.css']
 })
 export class KeyboardComponent {
-	keyboard:any = []
+	keyboard: any = []
 	errorMessage = '';
-	saveFile:any = '';
+	saveFile: any = '';
 	saved = true;
 
 	recents = [];
@@ -21,8 +22,9 @@ export class KeyboardComponent {
 	@Output() keyboardChange = new EventEmitter();
 
 	constructor(
-		private openFileService :OpenFileService,
-		private ngzone :NgZone
+		private openFileService: OpenFileService,
+		private ngzone: NgZone,
+		private translate: TranslateService
 	) {
 		const ipcRenderer = window.electron.ipcRenderer;
 
@@ -38,13 +40,13 @@ export class KeyboardComponent {
 		});
 		ipcRenderer.on('saveKeyboardFile', () => {
 			this.ngzone.run(() => {
-				if(this.keyboard == undefined || this.keyboard.length == 0) this.errorMessage = 'Nincs mit menteni';
+				if (this.keyboard == undefined || this.keyboard.length == 0) this.errorMessage = this.translate.instant('keyboard.nothingToSave');
 				else this.saveBoard();
 			});
 		});
 		ipcRenderer.on('saveAsKeyboardFile', () => {
 			this.ngzone.run(() => {
-				if(this.keyboard == undefined || this.keyboard.length == 0) this.errorMessage = 'Nincs mit menteni';
+				if (this.keyboard == undefined || this.keyboard.length == 0) this.errorMessage = this.translate.instant('keyboard.nothingToSave');
 				else this.saveBoardAs();
 			});
 		});
@@ -54,7 +56,7 @@ export class KeyboardComponent {
 		try {
 			this.recents = JSON.parse(localStorage.getItem('keyboard_recents') || '[]');
 		}
-		catch(e) {
+		catch (e) {
 			this.recents = [];
 		}
 
@@ -88,29 +90,29 @@ export class KeyboardComponent {
 	openFileDialog() {
 		this.errorMessage = '';
 		this.openFileService.openFile([
-			{name: 'H77+ billentyűzet fájl', extensions: ['h77.kbd']},
-			{name: 'Minden fájl', extensions: ['*']}
+			{ name: this.translate.instant('keyboard.keyFile'), extensions: ['h77.kbd'] },
+			{ name: this.translate.instant('keyboard.allFiles'), extensions: ['*'] }
 		], ['openFile']).then((name) => {
 			this.openFile(name);
 		}).catch(() => { });
 	}
 
 	checkBoard(board) {
-		if(board instanceof Array == false) {
-			throw 'Hibás fájlformátum';
+		if (board instanceof Array == false) {
+			throw this.translate.instant('keyboard.corruptedFile');
 		}
-		for(var i = 0; i < board.length; i++) {
-			if(board[i].key == undefined || board[i].name == undefined || (board[i].type != 'i' && board[i].type != 'e')) {
-				throw 'Hibás fájlformátum';
+		for (var i = 0; i < board.length; i++) {
+			if (board[i].key == undefined || board[i].name == undefined || (board[i].type != 'i' && board[i].type != 'e')) {
+				throw this.translate.instant('keyboard.corruptedFile');
 			}
-			else if(/^[a-z0-9]+$/i.test(board[i].key) == false) {
-				throw 'Hibás billentyű: csak betű és szám lehet';
+			else if (/^[a-z0-9]+$/i.test(board[i].key) == false) {
+				throw this.translate.instant('keyboard.corruptedKey');
 			}
-			else if(board[i].key == '') {
-				throw 'Billentyű nincs megadva';
+			else if (board[i].key == '') {
+				throw this.translate.instant('keyboard.missingKey');
 			}
-			else if(board[i].name == '') {
-				throw 'Név nincs megadva';
+			else if (board[i].name == '') {
+				throw this.translate.instant('keyboard.missingName');
 			}
 		}
 
@@ -120,20 +122,20 @@ export class KeyboardComponent {
 	openFile(name) {
 		this.errorMessage = '';
 		try {
-			if(window.fs.existsSync(name)) {
+			if (window.fs.existsSync(name)) {
 				var file = window.fs.readFileSync(name);
 
 				try {
 					var board = JSON.parse(file.toString());
 				}
-				catch(e) { throw 'Hibás fájlformátum'; }
+				catch (e) { throw this.translate.instant('keyboard.corruptedFile'); }
 
 				this.checkBoard(board);
 
-				for(; 0 < this.keyboard.length;) {
+				for (; 0 < this.keyboard.length;) {
 					this.keyboard.pop();
 				}
-				for(var i = 0; i < board.length; i++) {
+				for (var i = 0; i < board.length; i++) {
 					this.keyboard.push(board[i]);
 				}
 
@@ -141,22 +143,22 @@ export class KeyboardComponent {
 				this.saveFile = name;
 				this.saved = true;
 
-				let obj = {path: name, filename: window.path.parse(name).name};
-				if(this.recents.find((e)=>{return e.filename == obj.filename && e.path == obj.path}) === undefined) {
-					if(this.recents.length > 10) this.recents.unshift();
+				let obj = { path: name, filename: window.path.parse(name).name };
+				if (this.recents.find((e) => { return e.filename == obj.filename && e.path == obj.path }) === undefined) {
+					if (this.recents.length > 10) this.recents.unshift();
 					this.recents.push(obj);
 				}
 
 				localStorage.setItem('keyboard_recents', JSON.stringify(this.recents));
 			}
 			else {
-				this.errorMessage = 'A fájl nem létezik, vagy nincs jogosultság az elérésére.';
+				this.errorMessage = this.translate.instant('keyboard.fileNotExists');
 				this.saveFile = '';
 			}
 		}
-		catch(e) {
-			if(e) this.errorMessage = e;
-			else this.errorMessage = 'A fájl nem létezik, vagy nincs jogosultság az elérésére.';
+		catch (e) {
+			if (e) this.errorMessage = e;
+			else this.errorMessage = this.translate.instant('keyboard.fileNotExists');
 			this.saveFile = '';
 		}
 	}
@@ -168,8 +170,8 @@ export class KeyboardComponent {
 	saveBoardAs() {
 		this.errorMessage = '';
 		this.openFileService.saveFile([
-			{name: 'H77+ billentyűzet fájl', extensions: ['h77.kbd']},
-			{name: 'Minden fájl', extensions: ['*']}
+			{ name: this.translate.instant('keyboard.keyFile'), extensions: ['h77.kbd'] },
+			{ name: this.translate.instant('keyboard.allFiles'), extensions: ['*'] }
 		]).then((fileName) => {
 			this.exportFile(fileName);
 		}).catch(() => { })
@@ -178,12 +180,12 @@ export class KeyboardComponent {
 	exportFile(saveFile) {
 		try {
 			this.errorMessage = '';
-			if(this.checkBoard(this.keyboard)) {
+			if (this.checkBoard(this.keyboard)) {
 				var promise;
-				if(saveFile == '---NEW---') {
+				if (saveFile == '---NEW---') {
 					promise = this.openFileService.saveFile([
-						{name: 'H77+ billentyűzet fájl', extensions: ['h77.kbd']},
-						{name: 'Minden fájl', extensions: ['*']}
+						{ name: this.translate.instant('keyboard.keyFile'), extensions: ['h77.kbd'] },
+						{ name: this.translate.instant('keyboard.allFiles'), extensions: ['*'] }
 					]).then((name) => {
 						this.saveFile = name;
 						this.keyboard.name = window.path.parse(name).name;
@@ -198,29 +200,29 @@ export class KeyboardComponent {
 
 				promise.then(() => {
 					window.fs.writeFileSync(this.saveFile, JSON.stringify(this.keyboard));
-					this.errorMessage = '@Sikeres mentés';
+					this.errorMessage = '@' + this.translate.instant('keyboard.successSave');
 
 					this.saved = true;
 
-					let obj = {path: this.saveFile, filename: window.path.parse(this.saveFile).name};
-					if(this.recents.find((e)=>{return e.filename == obj.filename && e.path == obj.path}) === undefined) {
-						if(this.recents.length > 10) this.recents.unshift();
+					let obj = { path: this.saveFile, filename: window.path.parse(this.saveFile).name };
+					if (this.recents.find((e) => { return e.filename == obj.filename && e.path == obj.path }) === undefined) {
+						if (this.recents.length > 10) this.recents.unshift();
 						this.recents.push(obj);
 					}
 
 					localStorage.setItem('keyboard_recents', JSON.stringify(this.recents));
 				}).catch((e) => {
-					if(e) this.errorMessage = 'A billentyűzetfájl nem írható';
+					if (e) this.errorMessage = this.translate.instant('keyboard.saveFileNotWritable');
 				});
 			}
 		}
-		catch(e) {
+		catch (e) {
 			this.errorMessage = e;
 		}
 	}
 
 	restoreBoard() {
-		if(this.saveFile == '---NEW---') this.createNewBoard();
+		if (this.saveFile == '---NEW---') this.createNewBoard();
 		else this.openFile(this.saveFile);
 	}
 
@@ -244,12 +246,12 @@ export class KeyboardComponent {
 
 	canLeave() {
 		this.errorMessage = '';
-		if(this.saveFile == '') return true;
+		if (this.saveFile == '') return true;
 		try {
 			this.checkBoard(this.keyboard);
 			return true;
 		}
-		catch(e) {
+		catch (e) {
 			this.errorMessage = e;
 			return false;
 		}

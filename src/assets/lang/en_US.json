@@ -46,4 +46,32 @@
 		"saveFileNotWritable": "The settings file is not writable",
 		"successSave": "Successful save"
 	},
+	"keyboard": {
+		"title": "Keys",
+		"loadKeys": "Load key file",
+		"chooseFile": "Choose file",
+		"createNewFile": "Create new key file",
+		"unsavedChanges": "Unsaved changes. They will be lost if you leave.",
+		"save": "Save",
+		"restore": "Restore",
+		"key": "Key",
+		"keyTooltip": "The key that belongs to this occurence",
+		"name": "Name",
+		"nameTooltip": "The name that belongs to this occurence",
+		"type": "Type",
+		"typeTooltip": "Type of occurence; Interval (I) or Event (E)",
+		"remove": "Remove",
+		"add": "Add",
+		"nothingToSave": "Nothing to save",
+		"newFile": "New file",
+		"keyFile": "H77+ key file",
+		"allFiles": "All files",
+		"corruptedFile": "Corrupted file",
+		"corruptedKey": "Corrupted key: key must be letter or number",
+		"missingKey": "Missing key",
+		"missingName": "Missing name",
+		"fileNotExists": "The file does not exist, or you do not have the permission to access it.",
+		"saveFileNotWritable": "The settings file is not writable",
+		"successSave": "Successful save"
+	}
 }

@@ -46,4 +46,32 @@
 		"saveFileNotWritable": "A beállításfájl nem írható",
 		"successSave": "Sikeres mentés"
 	},
+	"keyboard": {
+		"title": "Billentyűk",
+		"loadKeys": "Billentyűk betöltése",
+		"chooseFile": "Fájl kiválasztása",
+		"createNewFile": "Új billentyűfájl létrehozása",
+		"unsavedChanges": "Elmentetlen változtatások. Kilépés esetén az elmentetlen változtatások elvesznek.",
+		"save": "Mentés",
+		"restore": "Visszaállítás",
+		"key": "Billentyű",
+		"keyTooltip": "A billentyű, aminek lenyomása regisztrálva lesz",
+		"name": "Név",
+		"nameTooltip": "A lenyomáshoz rendelt név",
+		"type": "Típus",
+		"typeTooltip": "A lenyomás típusa; Intervallum (I) vagy Esemény (E)",
+		"remove": "Eltávolítás",
+		"add": "Hozzáadás",
+		"nothingToSave": "Nincs mit menteni",
+		"newFile": "Új fájl",
+		"keyFile": "H77+ billentyűzet fájl",
+		"allFiles": "Minden fájl",
+		"corruptedFile": "Hibás fájlformátum",
+		"corruptedKey": "Hibás billentyű: csak betű és szám lehet",
+		"missingKey": "Billentyű nincs megadva",
+		"missingName": "Név nincs megadva",
+		"fileNotExists": "A fájl nem létezik, vagy nincs jogosultság az elérésére.",
+		"saveFileNotWritable": "A billentyűzetfájl nem írható",
+		"successSave": "Sikeres mentés"
+	}
 }
