@@ -611,7 +611,7 @@
         </translation_file>
     </translation_files>
     <configuration>
-        <format>json</format>
+        <format>namespaced-json</format>
         <indent>tab</indent>
     </configuration>
 </babeledit_project>
