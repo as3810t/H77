@@ -48,7 +48,7 @@
 	},
 	"keyboard": {
 		"title": "Keys",
-		"loadKeys": "Load key file",
+		"loadKeys": "Load keys",
 		"chooseFile": "Choose file",
 		"createNewFile": "Create new key file",
 		"unsavedChanges": "Unsaved changes. They will be lost if you leave.",
