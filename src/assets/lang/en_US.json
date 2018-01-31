@@ -175,5 +175,19 @@
 		"keyDoesNotExist": "Key does not exist",
 		"longerThenLength": "Time must be positive, and smaller than the length of measurement ({{length}} s)",
 		"unsavedData": "Measurement data are not saved"
+	},
+	"afterworks": {
+		"split": {
+			"title": "Split measurement file"
+		},
+		"clip": {
+			"title": "Clip from measurement file"
+		},
+		"merge": {
+			"title": "Merge measurement files"
+		},
+		"edit": {
+			"title": "Edit measurement data"
+		}
 	}
 }

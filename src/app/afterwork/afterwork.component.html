@@ -1,35 +1,35 @@
 <ngb-alert [type]="errorMessage[0] == '@' ? 'success' : 'danger'" [hidden]="errorMessage == ''" (close)="errorMessage = ''">{{ errorMessage[0] == '@' ? errorMessage.slice(1) : errorMessage }}</ngb-alert>
 <ngb-accordion #tabSet="ngbAccordion" [closeOthers]="true" [destroyOnHide]="false" (panelChange)="canChange($event)">
 	<ngb-panel id="split">
-	    <ng-template ngbPanelTitle>
-	    	<h4>Mérés darabolása</h4>
-	    </ng-template>
-	    <ng-template ngbPanelContent>
-	    	<app-split #split></app-split>
-	    </ng-template>
+		<ng-template ngbPanelTitle>
+			<h4>{{ 'afterworks.split.title' | translate }}</h4>
+		</ng-template>
+		<ng-template ngbPanelContent>
+			<app-split #split></app-split>
+		</ng-template>
 	</ngb-panel>
 	<ngb-panel id="clip">
-	    <ng-template ngbPanelTitle>
-	    	<h4>Mérésből kivágás</h4>
-	    </ng-template>
-	    <ng-template ngbPanelContent>
-	    	<app-clip #clip></app-clip>
-	    </ng-template>
+		<ng-template ngbPanelTitle>
+			<h4>{{ 'afterworks.clip.title' | translate }}</h4>
+		</ng-template>
+		<ng-template ngbPanelContent>
+			<app-clip #clip></app-clip>
+		</ng-template>
 	</ngb-panel>
 	<ngb-panel id="merge">
-	    <ng-template ngbPanelTitle>
-	    	<h4>Mérési fájlok egyesítése</h4>
-	    </ng-template>
-	    <ng-template ngbPanelContent>
-	    	<app-merge #merge></app-merge>
-	    </ng-template>
+		<ng-template ngbPanelTitle>
+			<h4>{{ 'afterworks.merge.title' | translate }}</h4>
+		</ng-template>
+		<ng-template ngbPanelContent>
+			<app-merge #merge></app-merge>
+		</ng-template>
 	</ngb-panel>
 	<ngb-panel id="edit">
-	    <ng-template ngbPanelTitle>
-	    	<h4>Mérési adatok szerkesztése</h4>
-	    </ng-template>
-	    <ng-template ngbPanelContent>
-	    	<app-edit #edit></app-edit>
-	    </ng-template>
+		<ng-template ngbPanelTitle>
+			<h4>{{ 'afterworks.edit.title' | translate }}</h4>
+		</ng-template>
+		<ng-template ngbPanelContent>
+			<app-edit #edit></app-edit>
+		</ng-template>
 	</ngb-panel>
 </ngb-accordion>

@@ -175,5 +175,19 @@
 		"keyDoesNotExist": "Nem létező billentyűkód",
 		"longerThenLength": "Az idő egy pozitív szám, ami kisebb mint a mérés hossza ({{length}} mp)",
 		"unsavedData": "A mérési adatok nincsenek elmentve"
+	},
+	"afterworks": {
+		"split": {
+			"title": "Mérés darabolása"
+		},
+		"clip": {
+			"title": "Mérésből kivágás"
+		},
+		"merge": {
+			"title": "Mérési fájlok egyesítése"
+		},
+		"edit": {
+			"title": "Mérési adatok szerkesztése"
+		}
 	}
 }

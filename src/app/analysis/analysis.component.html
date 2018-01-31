@@ -23,7 +23,7 @@
 							</div>
 							<div>
 								<button class="btn btn-secondary stop" (click)="stop()" placement="right" ngbTooltip="{{ 'analysis.stop' | translate }}">◼</button>
-								<button class="btn btn-primary play" (click)="playPause()" placement="right" ngbTooltip="{{ paused ? ('analysis.missingSettingsOrKeys' | translate) : ('analysis.missingSettingsOrKeys' | translate) }} ({{ 'analysis.space' | translate }})">{{ paused ? '▶' : '▮▮' }}</button>
+								<button class="btn btn-primary play" (click)="playPause()" placement="right" ngbTooltip="{{ paused ? ('analysis.start' | translate) : ('analysis.pause' | translate) }} ({{ 'analysis.space' | translate }})">{{ paused ? '▶' : '▮▮' }}</button>
 								<span [ngClass]="{'highlight': !paused}">{{ (time / 1000) | number:'1.1-1'}}</span>
 							</div>
 							<div class="input-group">
