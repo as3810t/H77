@@ -27,8 +27,10 @@
 								<span [ngClass]="{'highlight': !paused}">{{ (time / 1000) | number:'1.1-1'}}</span>
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.speedOfTime' | translate }}">{{ 'analysis.speed' | translate }}</span>
-								<select class="form-control" [(ngModel)]="speed" (change)="speedChange()" name="speed">
+								<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.speedOfTime' | translate }}">
+									<span class="input-group-text">{{ 'analysis.speed' | translate }}</span>
+								</span>
+								<select class="form-control custom-select" [(ngModel)]="speed" (change)="speedChange()" name="speed">
 									<option value="0.125">0.125</option>
 									<option value="0.25">0.25</option>
 									<option value="0.5">0.5</option>
@@ -41,23 +43,29 @@
 								</select>
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.jumpTooltip' | translate }}">{{ 'analysis.jump' | translate }}</span>
+								<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.jumpTooltip' | translate }}">
+									<span class="input-group-text">{{ 'analysis.jump' | translate }}</span>
+								</span>
 								<input [disabled]="!paused" type="number" class="form-control" name="jumpTo" [(ngModel)]="jumpTo" (keyup.enter)="jump()">
-								<span class="input-group-addon">{{ 'analysis.timeMU' | translate }}</span>
-								<span class="input-group-btn">
-							        <button class="btn btn-secondary" type="button" (click)="jump()" placement="right" ngbTooltip="{{ 'analysis.jump' | translate }}">▶</button>
-							    </span>
+								<span class="input-group-append">
+									<span class="input-group-text">{{ 'analysis.timeMU' | translate }}</span>
+								<button class="btn btn-secondary" type="button" (click)="jump()" placement="right" ngbTooltip="{{ 'analysis.jump' | translate }}">▶</button>
+								</span>
 							</div>
 						</div>
 						<div class="col">
 							<div class="input-group">
-								<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.fileNameTooltip' | translate }}">{{ 'analysis.fileName' | translate }}</span>
-								<span class="input-group-addon">{{ settings?.acronym }}</span>
+								<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.fileNameTooltip' | translate }}">
+									<span class="input-group-text">{{ 'analysis.fileName' | translate }}</span>
+								<span class="input-group-text">{{ settings?.acronym }}</span>
+								</span>
 								<input type="text" class="form-control" name="fileName" [(ngModel)]="fileName">
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.fileTypeTooltip' | translate }}">{{ 'analysis.fileType' | translate }}</span>
-								<select class="form-control" name="fileType" [(ngModel)]="fileType">
+								<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.fileTypeTooltip' | translate }}">
+									<span class="input-group-text">{{ 'analysis.fileType' | translate }}</span>
+								</span>
+								<select class="form-control custom-select" name="fileType" [(ngModel)]="fileType">
 									<option value="xlsx" selected>{{ 'analysis.excel' | translate }} (xlsx)</option>
 									<option value="ods">{{ 'analysis.libreoffice' | translate }} (ods)</option>
 									<option value="csv">{{ 'analysis.raw' | translate }} (csv)</option>
@@ -155,11 +163,13 @@
 					</tbody>
 				</table>
 				<div class="input-group" *ngIf="editing == true">
-					<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.editKeyTooltip' | translate }}">{{ 'analysis.editKey' | translate }}</span>
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.editKeyTooltip' | translate }}">
+						<span class="input-group-text">{{ 'analysis.editKey' | translate }}</span>
+					</span>
 					<input type="text" maxlength="1" class="form-control" name="addEventListKey" [(ngModel)]="addEventListKey">
-					<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.editTimeTooltip' | translate }}">{{ 'analysis.editTime' | translate }}</span>
+					<span class="input-group-text" placement="right" ngbTooltip="{{ 'analysis.editTimeTooltip' | translate }}">{{ 'analysis.editTime' | translate }}</span>
 					<input type="number" min="1" class="form-control" name="addEventListTime" [(ngModel)]="addEventListTime">
-					<span class="input-group-btn">
+					<span class="input-group-append">
 						<button class="btn btn-secondary" (click)="addToEventList()" placement="top" ngbTooltip="{{ 'analysis.add' | translate }}">+</button>
 					</span>
 				</div>
@@ -185,7 +195,9 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.brightness' | translate }}: {{ videoConfigBrightness }}">{{ 'analysis.videoSettings.brightness' | translate }}</span>
+						<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.videoSettings.brightness' | translate }}: {{ videoConfigBrightness }}">
+							<span class="input-group-text">{{ 'analysis.videoSettings.brightness' | translate }}</span>
+						</span>
 						<input type="number" class="form-control" name="cideoConfigBrightness" min="0" max="8" step="0.01" [(ngModel)]="videoConfigBrightness" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigBrightness" min="0" max="8" step="0.01" [(ngModel)]="videoConfigBrightness" (change)="changeVideoConfig()">
 					</div>
@@ -194,7 +206,9 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.contrast' | translate }}: {{ videoConfigContrast }}">{{ 'analysis.videoSettings.contrast' | translate }}</span>
+						<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.videoSettings.contrast' | translate }}: {{ videoConfigContrast }}">
+							<span class="input-group-text">{{ 'analysis.videoSettings.contrast' | translate }}</span>
+						</span>
 						<input type="number" class="form-control" name="videoConfigContrast" min="0" max="8" step="0.01" [(ngModel)]="videoConfigContrast" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigContrast" min="0" max="8" step="0.01" [(ngModel)]="videoConfigContrast" (change)="changeVideoConfig()">
 					</div>
@@ -203,7 +217,9 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.grayscale' | translate }}: {{ videoConfigGrayscale }}">{{ 'analysis.videoSettings.grayscale' | translate }}</span>
+						<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.videoSettings.grayscale' | translate }}: {{ videoConfigGrayscale }}">
+							<span class="input-group-text">{{ 'analysis.videoSettings.grayscale' | translate }}</span>
+						</span>
 						<input type="number" class="form-control" name="videoConfigGrayscale" min="0" max="1" step="0.01" [(ngModel)]="videoConfigGrayscale" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigGrayscale" min="0" max="1" step="0.01" [(ngModel)]="videoConfigGrayscale" (change)="changeVideoConfig()">
 					</div>
@@ -212,7 +228,9 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.sepia' | translate }}: {{ videoConfigSepia }}">{{ 'analysis.videoSettings.sepia' | translate }}</span>
+						<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.videoSettings.sepia' | translate }}: {{ videoConfigSepia }}">
+							<span class="input-group-text">{{ 'analysis.videoSettings.sepia' | translate }}</span>
+						</span>
 						<input type="number" class="form-control" name="videoConfigSepia" min="0" max="1" step="0.01" [(ngModel)]="videoConfigSepia" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigSepia" min="0" max="1" step="0.01" [(ngModel)]="videoConfigSepia" (change)="changeVideoConfig()">
 					</div>
@@ -221,7 +239,9 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.huerotate' | translate }}: {{ videoConfigHue }}">{{ 'analysis.videoSettings.huerotate' | translate }}</span>
+						<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.videoSettings.huerotate' | translate }}: {{ videoConfigHue }}">
+							<span class="input-group-text">{{ 'analysis.videoSettings.huerotate' | translate }}</span>
+						</span>
 						<input type="number" class="form-control" name="videoConfigHue" min="0" max="360" step="0.01" [(ngModel)]="videoConfigHue" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigHue" min="0" max="360" step="0.01" [(ngModel)]="videoConfigHue" (change)="changeVideoConfig()">
 					</div>
@@ -230,7 +250,9 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="invert: {{ videoConfigInvert }}">{{ 'analysis.videoSettings.invert' | translate }}</span>
+						<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.videoSettings.invert' | translate }}: {{ videoConfigInvert }}">
+							<span class="input-group-text">{{ 'analysis.videoSettings.invert' | translate }}</span>
+						</span>
 						<input type="number" class="form-control" name="videoConfigInvert" min="0" max="1" step="0.01" [(ngModel)]="videoConfigInvert" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigInvert" min="0" max="1" step="0.01" [(ngModel)]="videoConfigInvert" (change)="changeVideoConfig()">
 					</div>
@@ -239,7 +261,9 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.saturation' | translate }}: {{ videoConfigSaturate }}">{{ 'analysis.videoSettings.saturation' | translate }}</span>
+						<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.videoSettings.saturation' | translate }}: {{ videoConfigSaturate }}">
+							<span class="input-group-text">{{ 'analysis.videoSettings.saturation' | translate }}</span>
+						</span>
 						<input type="number" class="form-control" name="videoConfigSaturate" min="0" max="8" step="0.01" [(ngModel)]="videoConfigSaturate" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigSaturate" min="0" max="8" step="0.01" [(ngModel)]="videoConfigSaturate" (change)="changeVideoConfig()">
 					</div>
@@ -248,23 +272,25 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.horizontalMirror' | translate }}">{{ 'analysis.videoSettings.horizontalMirror' | translate }}</span>
-						<span class="input-group-addon">
-							<label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
-								<input type="checkbox" name="videoConfigVertical" [(ngModel)]="videoConfigVertical" (change)="changeVideoConfig()" class="custom-control-input">
-								<span class="custom-control-indicator"></span>
-						</label>
+						<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.videoSettings.horizontalMirror' | translate }}">
+							<span class="input-group-text">{{ 'analysis.videoSettings.horizontalMirror' | translate }}</span>
+						</span>
+						<span class="input-group-append">
+							<span class="input-group-text">
+								<input type="checkbox" name="videoConfigVertical" [(ngModel)]="videoConfigVertical" (change)="changeVideoConfig()">
+							</span>
 						</span>
 					</div>
 				</div>
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.verticalMirror' | translate }}">{{ 'analysis.videoSettings.verticalMirror' | translate }}</span>
-						<span class="input-group-addon">
-							<label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
-								<input type="checkbox" name="videoConfigHorizontal" [(ngModel)]="videoConfigHorizontal" (change)="changeVideoConfig()" class="custom-control-input">
-								<span class="custom-control-indicator"></span>
-						</label>
+						<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'analysis.videoSettings.verticalMirror' | translate }}">
+							<span class="input-group-text">{{ 'analysis.videoSettings.verticalMirror' | translate }}</span>
+						</span>
+						<span class="input-group-append">
+							<span class="input-group-text">
+								<input type="checkbox" name="videoConfigHorizontal" [(ngModel)]="videoConfigHorizontal" (change)="changeVideoConfig()">
+							</span>
 						</span>
 					</div>
 				</div>
