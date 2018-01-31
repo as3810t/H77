@@ -2,7 +2,7 @@
 
 <div class="d-flex flex-row justify-content-center align-items-center message" *ngIf="(settings == undefined || settings.name == undefined || settings.name == '' || keyboard == undefined || keyboard.length == undefined || keyboard.length == 0)">
 	<div class="alert alert-danger" role="alert">
-		Nincs betöltött beállítás vagy billentyű fájl
+		{{ 'analysis.missingSettingsOrKeys' | translate }}
 	</div>
 </div>
 
@@ -22,12 +22,12 @@
 								</div>
 							</div>
 							<div>
-								<button class="btn btn-secondary stop" (click)="stop()" placement="right" ngbTooltip="Megállítás">◼</button>
-								<button class="btn btn-primary play" (click)="playPause()" placement="right" ngbTooltip="{{ paused ? 'Indítás' : 'Szünet' }} (szóköz)">{{ paused ? '▶' : '▮▮' }}</button>
+								<button class="btn btn-secondary stop" (click)="stop()" placement="right" ngbTooltip="{{ 'analysis.stop' | translate }}">◼</button>
+								<button class="btn btn-primary play" (click)="playPause()" placement="right" ngbTooltip="{{ paused ? ('analysis.missingSettingsOrKeys' | translate) : ('analysis.missingSettingsOrKeys' | translate) }} ({{ 'analysis.space' | translate }})">{{ paused ? '▶' : '▮▮' }}</button>
 								<span [ngClass]="{'highlight': !paused}">{{ (time / 1000) | number:'1.1-1'}}</span>
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon" placement="right" ngbTooltip="Az idő sebessége">Sebesség</span>
+								<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.speedOfTime' | translate }}">{{ 'analysis.speed' | translate }}</span>
 								<select class="form-control" [(ngModel)]="speed" (change)="speedChange()" name="speed">
 									<option value="0.125">0.125</option>
 									<option value="0.25">0.25</option>
@@ -41,33 +41,33 @@
 								</select>
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon" placement="right" ngbTooltip="Idő állítása a megadott időpontra (minden utána regisztrált esemény törlődik indításkor)">Ugrás</span>
+								<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.jumpTooltip' | translate }}">{{ 'analysis.jump' | translate }}</span>
 								<input [disabled]="!paused" type="number" class="form-control" name="jumpTo" [(ngModel)]="jumpTo" (keyup.enter)="jump()">
-								<span class="input-group-addon">mp</span>
+								<span class="input-group-addon">{{ 'analysis.timeMU' | translate }}</span>
 								<span class="input-group-btn">
-							        <button class="btn btn-secondary" type="button" (click)="jump()" placement="right" ngbTooltip="Ugrás">▶</button>
+							        <button class="btn btn-secondary" type="button" (click)="jump()" placement="right" ngbTooltip="{{ 'analysis.jump' | translate }}">▶</button>
 							    </span>
 							</div>
 						</div>
 						<div class="col">
 							<div class="input-group">
-								<span class="input-group-addon" placement="right" ngbTooltip="A fájl neve">Név</span>
+								<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.fileNameTooltip' | translate }}">{{ 'analysis.fileName' | translate }}</span>
 								<span class="input-group-addon">{{ settings?.acronym }}</span>
 								<input type="text" class="form-control" name="fileName" [(ngModel)]="fileName">
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon" placement="right" ngbTooltip="A fájl típusa">Típus</span>
+								<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.fileTypeTooltip' | translate }}">{{ 'analysis.fileType' | translate }}</span>
 								<select class="form-control" name="fileType" [(ngModel)]="fileType">
-									<option value="xlsx" selected>Excel (xlsx)</option>
-									<option value="ods">Libre Office (ods)</option>
-									<option value="csv">Nyers (csv)</option>
+									<option value="xlsx" selected>{{ 'analysis.excel' | translate }} (xlsx)</option>
+									<option value="ods">{{ 'analysis.libreoffice' | translate }} (ods)</option>
+									<option value="csv">{{ 'analysis.raw' | translate }} (csv)</option>
 								</select>
 							</div>
-							<div><button class="btn btn-primary" (click)="exportFile()">Mentés</button></div>
+							<div><button class="btn btn-primary" (click)="exportFile()">{{ 'analysis.saveFile' | translate }}</button></div>
 							<div class="editing">
-								<button class="btn btn-secondary" *ngIf="editing == false" (click)="startEditing()">Adatok szerkesztése</button>
-								<button class="btn btn-secondary" *ngIf="editing == true" (click)="dropEditing()">Elvetés</button>
-								<button class="btn btn-primary" *ngIf="editing == true" (click)="saveEditing()">Rögzítés</button>
+								<button class="btn btn-secondary" *ngIf="editing == false" (click)="startEditing()">{{ 'analysis.editData' | translate }}</button>
+								<button class="btn btn-secondary" *ngIf="editing == true" (click)="dropEditing()">{{ 'analysis.drop' | translate }}</button>
+								<button class="btn btn-primary" *ngIf="editing == true" (click)="saveEditing()">{{ 'analysis.finalize' | translate }}</button>
 							</div>
 						</div>
 					</div>
@@ -78,8 +78,8 @@
 			<table class="table keyboard">
 				<thead>
 					<tr>
-						<th><span placement="right" ngbTooltip="Billentyű">Bill.</span></th>
-						<th><span placement="right" ngbTooltip="Név (típus)">Név</span></th>
+						<th><span placement="right" ngbTooltip="{{ 'analysis.keyTooltip' | translate }}">{{ 'analysis.key' | translate }}</span></th>
+						<th><span placement="right" ngbTooltip="{{ 'analysis.nameTooltip' | translate }}">{{ 'analysis.name' | translate }}</span></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -94,10 +94,10 @@
 			<table class="table notedit">
 				<thead>
 					<tr>
-						<th><span placement="top" ngbTooltip="Sorszám">#</span></th>
-						<th><span placement="top" ngbTooltip="Bekövetkezett esemény neve (billentyű kódja)">E</span></th>
-						<th><span placement="top" ngbTooltip="Bekövetkezett esemény típusának előfordulása">S</span></th>
-						<th><span placement="top" ngbTooltip="Bekövetkezés időpontja">I</span></th>
+						<th><span placement="top" ngbTooltip="{{ 'analysis.numberTooltip' | translate }}">#</span></th>
+						<th><span placement="top" ngbTooltip="{{ 'analysis.occurenceTooltip' | translate }}">{{ 'analysis.occurenceAbbr' | translate }}</span></th>
+						<th><span placement="top" ngbTooltip="{{ 'analysis.orderTooltip' | translate }}">{{ 'analysis.orderAbbr' | translate }}</span></th>
+						<th><span placement="top" ngbTooltip="{{ 'analysis.timeTooltip' | translate }}">{{ 'analysis.timeAbbr' | translate }}</span></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -117,10 +117,10 @@
 				<table class="table notedit" *ngIf="editing == false">
 					<thead>
 						<tr>
-							<th><span placement="right" ngbTooltip="Sorszám">#</span></th>
-							<th><span placement="right" ngbTooltip="Bekövetkezett esemény neve (billentyű kódja)">Esemény</span></th>
-							<th><span placement="right" ngbTooltip="Bekövetkezett esemény típusának előfordulása">Sorrend</span></th>
-							<th><span placement="right" ngbTooltip="Bekövetkezés időpontja">Időpont</span></th>
+							<th><span placement="right" ngbTooltip="{{ 'analysis.numberTooltip' | translate }}">#</span></th>
+							<th><span placement="right" ngbTooltip="{{ 'analysis.occurenceTooltip' | translate }}">{{ 'analysis.occurence' | translate }}</span></th>
+							<th><span placement="right" ngbTooltip="{{ 'analysis.orderTooltip' | translate }}">{{ 'analysis.order' | translate }}</span></th>
+							<th><span placement="right" ngbTooltip="{{ 'analysis.timeTooltip' | translate }}">{{ 'analysis.time' | translate }}</span></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -135,11 +135,11 @@
 				<table class="table edit" *ngIf="editing == true">
 					<thead>
 						<tr>
-							<th><span placement="right" ngbTooltip="Sorszám">#</span></th>
-							<th><span placement="right" ngbTooltip="Bekövetkezett esemény billentyű kódja">Billentyű</span></th>
-							<th><span placement="right" ngbTooltip="Bekövetkezett esemény neve (típusa)">Név</span></th>
-							<th><span placement="right" ngbTooltip="Bekövetkezett esemény típusának előfordulása">Sorrend</span></th>
-							<th><span placement="right" ngbTooltip="Bekövetkezés időpontja">Időpont</span></th>
+							<th><span placement="right" ngbTooltip="{{ 'analysis.numberTooltip' | translate }}">#</span></th>
+							<th><span placement="right" ngbTooltip="{{ 'analysis.editKeyTooltip' | translate }}">{{ 'analysis.editKey' | translate }}</span></th>
+							<th><span placement="right" ngbTooltip="{{ 'analysis.editNameTooltip' | translate }}">{{ 'analysis.editName' | translate }}</span></th>
+							<th><span placement="right" ngbTooltip="{{ 'analysis.editOrderTooltip' | translate }}">{{ 'analysis.editOrder' | translate }}</span></th>
+							<th><span placement="right" ngbTooltip="{{ 'analysis.editTimeTooltip' | translate }}">{{ 'analysis.editTime' | translate }}</span></th>
 							<th></th>
 						</tr>
 					</thead>
@@ -150,17 +150,17 @@
 							<td>{{ eventList[eventList.length-i-1].name }} (<i>{{ eventList[eventList.length-i-1].type }}</i>)</td>
 							<td>{{ eventList[eventList.length-i-1].freq }}</td>
 							<td><input type="number" min="0" name="time{{i}}" class="form-control" [(ngModel)]="eventList[eventList.length-i-1].time" (change)="recalculateEventList()"></td>
-							<td><button class="btn btn-secondary" (click)="removeFromEventList(eventList.length - i - 1)" placement="bottom" ngbTooltip="Eltávolítás">x</button></td>
+							<td><button class="btn btn-secondary" (click)="removeFromEventList(eventList.length - i - 1)" placement="bottom" ngbTooltip="{{ 'analysis.remove' | translate }}">x</button></td>
 						</tr>
 					</tbody>
 				</table>
 				<div class="input-group" *ngIf="editing == true">
-					<span class="input-group-addon" placement="right" ngbTooltip="Az esemény billentyű kódja">Billentyű</span>
+					<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.editKeyTooltip' | translate }}">{{ 'analysis.editKey' | translate }}</span>
 					<input type="text" maxlength="1" class="form-control" name="addEventListKey" [(ngModel)]="addEventListKey">
-					<span class="input-group-addon" placement="right" ngbTooltip="Az esemény bekövetkezésének ideje">Időpont</span>
+					<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.editTimeTooltip' | translate }}">{{ 'analysis.editTime' | translate }}</span>
 					<input type="number" min="1" class="form-control" name="addEventListTime" [(ngModel)]="addEventListTime">
 					<span class="input-group-btn">
-						<button class="btn btn-secondary" (click)="addToEventList()" placement="top" ngbTooltip="Hozzáadás">+</button>
+						<button class="btn btn-secondary" (click)="addToEventList()" placement="top" ngbTooltip="{{ 'analysis.add' | translate }}">+</button>
 					</span>
 				</div>
 			</div>
@@ -170,7 +170,7 @@
 
 <ng-template #videoConfig let-c="close" let-d="dismiss">
 	<div class="modal-header">
-		<h4 class="modal-title">Videó konfigurálása</h4>
+		<h4 class="modal-title">{{ 'analysis.videoSettings.title' | translate }}</h4>
 		<button type="button" class="close" aria-label="Close" (click)="d()">
 			<span aria-hidden="true">&times;</span>
 		</button>
@@ -185,7 +185,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="Fényerő: {{ videoConfigBrightness }}">Fényerő</span>
+						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.brightness' | translate }}: {{ videoConfigBrightness }}">{{ 'analysis.videoSettings.brightness' | translate }}</span>
 						<input type="number" class="form-control" name="cideoConfigBrightness" min="0" max="8" step="0.01" [(ngModel)]="videoConfigBrightness" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigBrightness" min="0" max="8" step="0.01" [(ngModel)]="videoConfigBrightness" (change)="changeVideoConfig()">
 					</div>
@@ -194,7 +194,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="Kontraszt: {{ videoConfigContrast }}">Kontraszt</span>
+						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.contrast' | translate }}: {{ videoConfigContrast }}">{{ 'analysis.videoSettings.contrast' | translate }}</span>
 						<input type="number" class="form-control" name="videoConfigContrast" min="0" max="8" step="0.01" [(ngModel)]="videoConfigContrast" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigContrast" min="0" max="8" step="0.01" [(ngModel)]="videoConfigContrast" (change)="changeVideoConfig()">
 					</div>
@@ -203,7 +203,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="Szürkeárnyalat: {{ videoConfigGrayscale }}">Szürkeárnyalat</span>
+						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.grayscale' | translate }}: {{ videoConfigGrayscale }}">{{ 'analysis.videoSettings.grayscale' | translate }}</span>
 						<input type="number" class="form-control" name="videoConfigGrayscale" min="0" max="1" step="0.01" [(ngModel)]="videoConfigGrayscale" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigGrayscale" min="0" max="1" step="0.01" [(ngModel)]="videoConfigGrayscale" (change)="changeVideoConfig()">
 					</div>
@@ -212,7 +212,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="Szépia: {{ videoConfigSepia }}">Szépia</span>
+						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.sepia' | translate }}: {{ videoConfigSepia }}">{{ 'analysis.videoSettings.sepia' | translate }}</span>
 						<input type="number" class="form-control" name="videoConfigSepia" min="0" max="1" step="0.01" [(ngModel)]="videoConfigSepia" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigSepia" min="0" max="1" step="0.01" [(ngModel)]="videoConfigSepia" (change)="changeVideoConfig()">
 					</div>
@@ -221,7 +221,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="Színforgatás: {{ videoConfigHue }}">Színforgatás</span>
+						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.huerotate' | translate }}: {{ videoConfigHue }}">{{ 'analysis.videoSettings.huerotate' | translate }}</span>
 						<input type="number" class="form-control" name="videoConfigHue" min="0" max="360" step="0.01" [(ngModel)]="videoConfigHue" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigHue" min="0" max="360" step="0.01" [(ngModel)]="videoConfigHue" (change)="changeVideoConfig()">
 					</div>
@@ -230,7 +230,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="Invertálás: {{ videoConfigInvert }}">Invertálás</span>
+						<span class="input-group-addon" placement="right" ngbTooltip="invert: {{ videoConfigInvert }}">{{ 'analysis.videoSettings.invert' | translate }}</span>
 						<input type="number" class="form-control" name="videoConfigInvert" min="0" max="1" step="0.01" [(ngModel)]="videoConfigInvert" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigInvert" min="0" max="1" step="0.01" [(ngModel)]="videoConfigInvert" (change)="changeVideoConfig()">
 					</div>
@@ -239,7 +239,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="Szaturáció: {{ videoConfigSaturate }}">Szaturáció</span>
+						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.saturation' | translate }}: {{ videoConfigSaturate }}">{{ 'analysis.videoSettings.saturation' | translate }}</span>
 						<input type="number" class="form-control" name="videoConfigSaturate" min="0" max="8" step="0.01" [(ngModel)]="videoConfigSaturate" (change)="changeVideoConfig()">
 						<input type="range" class="form-control" name="videoConfigSaturate" min="0" max="8" step="0.01" [(ngModel)]="videoConfigSaturate" (change)="changeVideoConfig()">
 					</div>
@@ -248,23 +248,23 @@
 			<div class="row">
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="Vízszintes tükrözés">Vízszintes tükrözés</span>
+						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.horizontalMirror' | translate }}">{{ 'analysis.videoSettings.horizontalMirror' | translate }}</span>
 						<span class="input-group-addon">
 							<label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
 								<input type="checkbox" name="videoConfigVertical" [(ngModel)]="videoConfigVertical" (change)="changeVideoConfig()" class="custom-control-input">
 								<span class="custom-control-indicator"></span>
-							</label>
+						</label>
 						</span>
 					</div>
 				</div>
 				<div class="col">
 					<div class="input-group">
-						<span class="input-group-addon" placement="right" ngbTooltip="Függőleges tükrözés">Függőleges tükrözés</span>
+						<span class="input-group-addon" placement="right" ngbTooltip="{{ 'analysis.videoSettings.verticalMirror' | translate }}">{{ 'analysis.videoSettings.verticalMirror' | translate }}</span>
 						<span class="input-group-addon">
 							<label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
 								<input type="checkbox" name="videoConfigHorizontal" [(ngModel)]="videoConfigHorizontal" (change)="changeVideoConfig()" class="custom-control-input">
 								<span class="custom-control-indicator"></span>
-							</label>
+						</label>
 						</span>
 					</div>
 				</div>
@@ -272,23 +272,22 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-secondary" (click)="resetVideoConfig()">Visszaállítás</button>
-		<button type="button" class="btn btn-primary" (click)="c()">Rendben</button>
+		<button type="button" class="btn btn-secondary" (click)="resetVideoConfig()">{{ 'analysis.videoSettings.restore' | translate }}</button>
+		<button type="button" class="btn btn-primary" (click)="c()">{{ 'analysis.videoSettings.save' | translate }}</button>
 	</div>
 </ng-template>
 
 <ng-template #endOfAnalysis let-c="close" let-d="dismiss">
 	<div class="modal-header">
-		<h4 class="modal-title">Mérés vége</h4>
+		<h4 class="modal-title">{{ 'analysis.endTitle' | translate }}</h4>
 		<button type="button" class="close" aria-label="Close" (click)="d()">
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
 	<div class="modal-body">
-		A mérés véget ért!
-	</div>	
+		{{ 'analysis.endBody' | translate }}
+	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-primary" (click)="c()">Rendben</button>
+		<button type="button" class="btn btn-primary" (click)="c()">{{ 'analysis.OK' | translate }}</button>
 	</div>
 </ng-template>
-
