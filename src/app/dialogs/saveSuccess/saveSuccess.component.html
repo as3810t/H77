@@ -1,0 +1,34 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{ 'dialogs.saveSuccess.title' | translate }}</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<div class="input-group">
+		<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.saveSuccess.saveFolderTooltip' | translate }}">
+			<span class="input-group-text">{{ 'dialogs.saveSuccess.saveFolder' | translate }}</span>
+		</span>
+		<input type="text" disabled class="form-control" name="saveFolderName" [(ngModel)]="saveFolderName" placement="bottom" ngbTooltip="{{ saveFolderName }}">
+		<span class="input-group-append">
+			<button class="btn btn-secondary" type="button" (click)="saveShowFolder()">{{ 'dialogs.saveSuccess.openFolder' | translate }}</button>
+		</span>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>{{ 'dialogs.saveSuccess.fromTo' | translate }}</th>
+				<th>{{ 'dialogs.saveSuccess.fileName' | translate }}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let file of saveFiles">
+				<td>{{ file.begin }} {{ 'dialogs.saveSuccess.timeMU' | translate }} - {{ file.end }} {{ 'dialogs.saveSuccess.timeMU' | translate }}</td>
+				<td><span placement="bottom" ngbTooltip="{{ 'dialogs.saveSuccess.showTooltip' | translate }}">{{ file.fileName }}</span> <button class="btn btn-secondary" (click)="saveShowFile(file.fileName)">{{ 'dialogs.saveSuccess.show' | translate }}</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" (click)="activeModal.close()">{{ 'dialogs.saveSuccess.OK' | translate }}</button>
+</div>
