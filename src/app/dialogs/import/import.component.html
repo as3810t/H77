@@ -1,0 +1,194 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{ 'dialogs.import.title' | translate }}</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.filesTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.files' | translate }}</span>
+					</span>
+					<span *ngIf="openFileNames?.length != 1" class="form-control" name="openFileNames" placement="bottom" ngbTooltip="{{ 'dialogs.import.nfile' | translate:{num:openFileNames.length} }}">{{ 'dialogs.import.nfile' | translate:{num:openFileNames.length} }}</span>
+					<span *ngIf="openFileNames?.length == 1" type="text" disabled class="form-control" name="openFileName" placement="bottom" ngbTooltip="{{ openFileNames[0] }}">{{ openFileNames[0] }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h4>{{ 'dialogs.import.worksheets' | translate }}</h4>
+			</div>
+		</div>
+		<div class="row" *ngFor="let sheet of openSheet; let i = index">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.worksheetTooltip' | translate }}">
+						<span class="input-group-text">{{ openFileNames[i] }}</span>
+					</span>
+					<select name="openSheet{{i}}" class="form-control custom-select" [(ngModel)]="openSheet[i]">
+						<option *ngFor="let s of openSheets[i]" [value]="s">{{ s }}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h4>{{ 'dialogs.import.eventList' | translate }}</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.firstRowTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.firstRow' | translate }}</span>
+					</span>
+					<input type="number" name="openRow" class="form-control" [(ngModel)]="openRow">
+				</div>
+			</div>
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.numberTooltip' | translate }}">
+						<span class="input-group-text">#</span>
+					</span>
+					<input type="text" name="openID" class="form-control" [(ngModel)]="openID">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.keyTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.key' | translate }}</span>
+					</span>
+					<input type="text" name="openKey" class="form-control" [(ngModel)]="openKey">
+				</div>
+			</div>
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.nameTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.name' | translate }}</span>
+					</span>
+					<input type="text" name="openName" class="form-control" [(ngModel)]="openName">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.typeTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.type' | translate }}</span>
+					</span>
+					<input type="text" name="openType" class="form-control" [(ngModel)]="openType">
+				</div>
+			</div>
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.orderTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.order' | translate }}</span>
+					</span>
+					<input type="text" name="openFreq" class="form-control" [(ngModel)]="openFreq">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.timeTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.time' | translate }}</span>
+					</span>
+					<input type="text" name="openTime" class="form-control" [(ngModel)]="openTime">
+				</div>
+			</div>
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.identifierTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.identifier' | translate }}</span>
+					</span>
+					<input type="text" name="openIdent" class="form-control" [(ngModel)]="openIdent">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.lengthOfMeasurementTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.lengthOfMeasurement' | translate }}</span>
+					</span>
+					<input type="text" name="openLength" class="form-control" [(ngModel)]="openLength">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h4>{{ 'dialogs.import.keys' | translate }}</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.keysheetTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.keysheet' | translate }}</span>
+					</span>
+					<select name="openKeyboard" class="form-control" [(ngModel)]="openKeyboard">
+						<option *ngFor="let s of openSheets[0]" [value]="s">{{ s }}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.firstRowTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.firstRow' | translate }}</span>
+					</span>
+					<input type="text" name="openKeyboardRow" class="form-control" [(ngModel)]="openKeyboardRow">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.keyTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.key' | translate }}</span>
+					</span>
+					<input type="text" name="openKeyboardKey" class="form-control" [(ngModel)]="openKeyboardKey">
+				</div>
+			</div>
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.nameTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.name' | translate }}</span>
+					</span>
+					<input type="text" name="openKeyboardName" class="form-control" [(ngModel)]="openKeyboardName">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-prepend" placement="right" ngbTooltip="{{ 'dialogs.import.typeTooltip' | translate }}">
+						<span class="input-group-text">{{ 'dialogs.import.type' | translate }}</span>
+					</span>
+					<input type="text" name="openKeyboardType" class="form-control" [(ngModel)]="openKeyboardType">
+				</div>
+			</div>
+			<div class="col">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">{{ 'dialogs.import.cancel' | translate }}</button>
+	<button type="button" class="btn btn-primary" (click)="complete()">{{ 'dialogs.import.doImport' | translate }}</button>
+</div>

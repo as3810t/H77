@@ -1,0 +1,11 @@
+.modal-body .input-group .input-group-text:first-child {
+    min-width: 120px;
+}
+
+.modal-body .container {
+    margin-bottom: 10px;
+}
+
+.modal-body .container .row {
+    margin-bottom: 5px;
+}

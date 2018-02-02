@@ -15,9 +15,13 @@ import { SplitComponent } from './afterwork/split/split.component';
 import { ClipComponent } from './afterwork/clip/clip.component';
 import { MergeComponent } from './afterwork/merge/merge.component';
 import { EditComponent } from './afterwork/edit/edit.component';
+import { ImportComponent } from './dialogs/import/import.component';
+import { SaveSuccessComponent } from './dialogs/saveSuccess/saveSuccess.component';
 
 import { OpenFileService } from './dialogs/openFile.service';
 import { ExportFileService } from './dialogs/exportFile.service';
+import { ImportService } from './dialogs/import/import.service';
+import { SaveSuccessService } from './dialogs/saveSuccess/saveSuccess.service';
 import { TranslateService } from '@ngx-translate/core';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -34,7 +38,13 @@ export function HttpLoaderFactory(http: HttpClient) {
 		SplitComponent,
 		ClipComponent,
 		MergeComponent,
-		EditComponent
+		EditComponent,
+		ImportComponent,
+		SaveSuccessComponent
+	],
+	entryComponents: [
+		ImportComponent,
+		SaveSuccessComponent
 	],
 	imports: [
 		NgbModule.forRoot(),
@@ -51,6 +61,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 	],
 	providers: [
 		TranslateService,
+		ImportService,
+		SaveSuccessService,
 		OpenFileService,
 		ExportFileService
 	],

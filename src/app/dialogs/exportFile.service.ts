@@ -123,7 +123,7 @@ export class ExportFileService {
 				eventList['!ref'] = 'A1:J' + (data.length + 1);
 				wb.Sheets[this.translate.instant('dialogs.eventList')] = eventList;
 
-				wb.SheetNames.push(this.translate.instant('dialogs.eventList'));
+				wb.SheetNames.push(this.translate.instant('dialogs.events'));
 				var board = {
 					A1: { t: 's', v: this.translate.instant('dialogs.key') },
 					B1: { t: 's', v: this.translate.instant('dialogs.name') },
