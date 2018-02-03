@@ -64,52 +64,35 @@ export class AppComponent {
 		window.onbeforeunload = () => {
 			if (this.tabSettings.canClose() == false) {
 				this.ngzone.run(() => { this.ngbTabset.select('tabSettings'); });
-				return window.electron.remote.dialog.showMessageBox(window.electron.remote.getCurrentWindow(), {
-					type: 'warning',
-					buttons: ['Nem', 'Igen'],
-					defaultId: 0,
-					title: 'Biztosan kilép?',
-					message: 'A beállítások oldalon elmentetlen változtatások vannak. Biztosan kilép?',
-					cancelId: 0
-				}) == 1 ? undefined : false;
+				return this.leaveConfirm(this.translate.instant('settings.leaveConfirm')) ? undefined : false;
 			}
 			else if (this.tabKeyboard.canClose() == false) {
 				this.ngzone.run(() => { this.ngbTabset.select('tabKeyboard'); });
-				return window.electron.remote.dialog.showMessageBox(window.electron.remote.getCurrentWindow(), {
-					type: 'warning',
-					buttons: ['Nem', 'Igen'],
-					defaultId: 0,
-					title: 'Biztosan kilép?',
-					message: 'A billentyűk oldalon elmentetlen változtatások vannak. Biztosan kilép?',
-					cancelId: 0
-				}) == 1 ? undefined : false;
+				return this.leaveConfirm(this.translate.instant('keyboard.leaveConfirm')) ? undefined : false;
 			}
 			else if (this.tabAnalysis.canClose() == false) {
 				this.ngzone.run(() => { this.ngbTabset.select('tabAnalysis'); });
-				return window.electron.remote.dialog.showMessageBox(window.electron.remote.getCurrentWindow(), {
-					type: 'warning',
-					buttons: ['Nem', 'Igen'],
-					defaultId: 0,
-					title: 'Biztosan kilép?',
-					message: 'Az elemzés oldalon elmentetlen változtatások vannak, vagy mérés van folyamatban. Biztosan kilép?',
-					cancelId: 0
-				}) == 1 ? undefined : false;
+				return this.leaveConfirm(this.translate.instant('analysis.leaveConfirm')) ? undefined : false;
 			}
 			else if (this.tabAfterwork.canClose() == false) {
 				this.ngzone.run(() => { this.ngbTabset.select('tabAfterwork'); });
-				return window.electron.remote.dialog.showMessageBox(window.electron.remote.getCurrentWindow(), {
-					type: 'warning',
-					buttons: ['Nem', 'Igen'],
-					defaultId: 0,
-					title: 'Biztosan kilép?',
-					message: 'Az utómunkálatok oldalon elmentetlen változtatások vannak. Biztosan kilép?',
-					cancelId: 0
-				}) == 1 ? undefined : false;
+				return this.leaveConfirm(this.translate.instant('afterworks.leaveConfirm')) ? undefined : false;
 			}
 			else {
 				return undefined;
 			}
 		}
+	}
+
+	leaveConfirm(message) {
+		return window.electron.remote.dialog.showMessageBox(window.electron.remote.getCurrentWindow(), {
+			type: 'warning',
+			buttons: [this.translate.instant('dialogs.leaveConfirm.no'), this.translate.instant('dialogs.leaveConfirm.yes')],
+			defaultId: 0,
+			title: this.translate.instant('dialogs.leaveConfirm.title'),
+			message: message + ' ' + this.translate.instant('dialogs.leaveConfirm.wantToLeave'),
+			cancelId: 0
+		}) == 1;
 	}
 
 	beforeChange(event) {

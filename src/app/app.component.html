@@ -1,20 +1,20 @@
 <ngb-tabset #tabSet="ngbTabset" [destroyOnHide]="false" (tabChange)="beforeChange($event)">
-	<ngb-tab title="Beállítások" id="tabSettings">
+	<ngb-tab title="{{ 'settings.title' | translate }}" id="tabSettings">
 		<ng-template ngbTabContent>
 			<app-settings #tabSettings (settingsChange)="settings = $event"></app-settings>
 		</ng-template>
 	</ngb-tab>
-	<ngb-tab title="Billentyűk" id="tabKeyboard">
+	<ngb-tab title="{{ 'keyboard.title' | translate }}" id="tabKeyboard">
 		<ng-template ngbTabContent>
 			<app-keyboard #tabKeyboard (keyboardChange)="keyboard = $event"></app-keyboard>
 		</ng-template>
 	</ngb-tab>
-	<ngb-tab title="Elemzés" id="tabAnalysis">
+	<ngb-tab title="{{ 'analysis.title' | translate }}" id="tabAnalysis">
 		<ng-template ngbTabContent>
 			<app-analysis #tabAnalysis [settings]="settings" [keyboard]="keyboard"></app-analysis>
 		</ng-template>
 	</ngb-tab>
-	<ngb-tab title="Utómunkálatok" id="tabAfterwork">
+	<ngb-tab title="{{ 'afterworks.title' | translate }}" id="tabAfterwork">
 		<ng-template ngbTabContent>
 			<app-afterwork #tabAfterwork [settings]="settings"></app-afterwork>
 		</ng-template>

@@ -85,7 +85,7 @@ export class ExportFileService {
 				}
 			}
 
-			result['!ref'] = 'A1:' + window.XLSX.utils.encode_col(1 + (analysis.length * 4) + 3) + (2 + idents.length);
+			result['!ref'] = 'A1:' + window.XLSX.utils.encode_col(1 + ((analysis ? analysis.length : 0) * 4) + 3) + (2 + idents.length);
 			wb.Sheets[this.translate.instant('dialogs.result')] = result;
 
 			if (type == 'csv') {

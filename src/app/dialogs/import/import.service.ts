@@ -18,18 +18,18 @@ export class ImportService {
 		private translate: TranslateService
 	) { }
 
-	importDialog(multiFile) {
+	importDialog(multiFile?) {
 		let fileNames, openFileNames;
 		return this.openFileService.openFile([
 			{ name: this.translate.instant('dialogs.import.measurementFiles'), extensions: ['xlsx', 'ods'] },
 			{ name: this.translate.instant('dialogs.import.allFiles'), extensions: ['*'] }
 		], multiFile ? ['openFile', 'multiSelections'] : ['openFile']).then((names: any) => {
-			fileNames = names;
-			openFileNames = names.map((e) => { return window.path.parse(e).name });
+			fileNames = multiFile ? names : [names];
+			openFileNames = fileNames.map((e) => { return window.path.parse(e).name });
 
 			let sheetNamesPromises = [];
-			for (let i = 0; i < names.length; i++) {
-				sheetNamesPromises.push(this.exportFileService.importSheetNames(names[i]));
+			for (let i = 0; i < fileNames.length; i++) {
+				sheetNamesPromises.push(this.exportFileService.importSheetNames(fileNames[i]));
 			}
 
 			return Promise.all(sheetNamesPromises);
@@ -48,7 +48,7 @@ export class ImportService {
 
 				return Promise.all(importFilePromises);
 			}).catch(() => {
-				return Promise.resolve([]);
+				throw undefined;
 			});
 		}).then((datas: any) => {
 			let measurementLength = datas.length > 0 ? datas[0].length : 0;
@@ -70,14 +70,12 @@ export class ImportService {
 				}
 			}
 
-			if (datas.length == 0) return null;
-			else {
-				return {
-					measurementLength: measurementLength,
-					keyboard: datas[0].keyboard,
-					data: datas.map((e) => { return e.data })
-				}
-			}
+			return {
+				measurementLength: measurementLength,
+				keyboard: datas[0].keyboard,
+				data: datas.map((e) => { return e.data }),
+				files: fileNames
+			};
 		});
 	}
 }

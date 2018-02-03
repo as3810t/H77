@@ -91,7 +91,7 @@ const createWindow = async () => {
 		height: 400,
 		frame: false,
 		backgroundColor: '#ffffff',
-		icon: `${__dirname}/assets/favicon.ico`,
+		icon: `${__dirname}/assets/favicon.ico`
 	});
 
 	splash.loadURL(`file://${__dirname}/assets/splash/splash.html`);

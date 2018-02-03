@@ -12,7 +12,7 @@ export class OpenFileService {
 	openFile(filters, properties) {
 		return new Promise((resolve, reject) => {
 			window.electron.remote.dialog.showOpenDialog({
-				title: this.translate.instant('dialogs.openFile'),
+				title: properties[0] == 'openDirectory' ? this.translate.instant('dialogs.openFolder') : this.translate.instant('dialogs.openFile'),
 				filters: filters,
 				properties: properties
 			}, function(fileNames) {
@@ -45,5 +45,16 @@ export class OpenFileService {
 		else {
 			return window.electron.remote.dialog.showMessageBox(options);
 		}
+	}
+
+	overrideDialog() {
+		return this.showDialog({
+			type: 'question',
+			buttons: [this.translate.instant('dialogs.override.cancel'), this.translate.instant('dialogs.override.override')],
+			defaultId: 0,
+			title: this.translate.instant('dialogs.override.confirmation'),
+			message: this.translate.instant('dialogs.override.confirmationBody'),
+			cancelId: 0
+		}) == 1;
 	}
 }

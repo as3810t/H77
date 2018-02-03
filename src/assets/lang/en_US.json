@@ -1,4 +1,5 @@
 {
+	"lang": "English",
 	"settings": {
 		"title": "Settings",
 		"loadSettings": "Load settings",
@@ -44,7 +45,8 @@
 		"fileNotExists": "The file does not exist, or you do not have the permission to access it.",
 		"corruptedVideo": "Corrupted video file, or unsupported format",
 		"saveFileNotWritable": "The settings file is not writable",
-		"successSave": "Successful save"
+		"successSave": "Successful save",
+		"leaveConfirm": ""
 	},
 	"keyboard": {
 		"title": "Keys",
@@ -72,7 +74,8 @@
 		"missingName": "Missing name",
 		"fileNotExists": "The file does not exist, or you do not have the permission to access it.",
 		"saveFileNotWritable": "The settings file is not writable",
-		"successSave": "Successful save"
+		"successSave": "Successful save",
+		"leaveConfirm": ""
 	},
 	"dialogs": {
 		"result": "Result",
@@ -91,6 +94,7 @@
 		"length": "Length of measurement",
 		"events": "Occurences",
 		"openFile": "Open file",
+		"openFolder": "Open folder",
 		"saveFile": "Save file",
 		"import": {
 			"title": "Import",
@@ -138,6 +142,18 @@
 			"show": "Show",
 			"showTooltip": "Click to show",
 			"OK": "OK"
+		},
+		"override": {
+			"cancel": "Cancel",
+			"override": "Override",
+			"confirmation": "Confirmation",
+			"confirmationBody": "The file with the given name already exists. Do you want to override it?"
+		},
+		"leaveConfirm": {
+			"no": "No",
+			"yes": "Yes",
+			"title": "Confirmation",
+			"wantToLeave": "Are you sure you want to leave?"
 		}
 	},
 	"analysis": {
@@ -214,50 +230,71 @@
 		"errorSave": "Error while saving file",
 		"successSave": "Saccessful save",
 		"noName": "Name can not be empty",
-		"cancel": "Cancel",
-		"override": "Override",
-		"confirmation": "Confirmation",
-		"comfirmationBody": "The file with the given name already exists. Do you want to override it?",
 		"stopBeforeEdit": "Time must be stopped before editing data",
 		"keyDoesNotExist": "Key does not exist",
 		"longerThenLength": "Time must be positive, and smaller than the length of measurement ({{length}} s)",
-		"unsavedData": "Measurement data are not saved"
+		"unsavedData": "Measurement data are not saved",
+		"title": "Analysis",
+		"leaveConfirm": ""
 	},
 	"afterworks": {
 		"split": {
-			"title": "Split measurement file"
+			"title": "Split measurement file",
+			"length": "Length",
+			"lengthTooltip": "The length of pieces, the file will be splitted to",
+			"pieces": "Pieces",
+			"piecesTooltip": "The number of pieces, the file will be splitted to",
+			"piecesRangeError": "Pieces needs to be a positive number",
+			"lengthRangeError": "Length needs to be between 0 and the length of measurement ({{len}} s)"
 		},
 		"clip": {
 			"title": "Clip from measurement file",
-			"file": "",
-			"fileTooltip": "",
-			"openFile": "",
-			"lengthOfMeasurement": "",
-			"timeMU": "",
-			"key": "",
-			"occurence": "",
-			"saveType": "",
-			"saveTypeTooltip": "",
-			"drop": "",
-			"save": "",
-			"start": "",
-			"startTooltip": "",
-			"end": "",
-			"endTooltip": "",
-			"successSave": "",
-			"saveFolder": "",
-			"saveFolderTooltip": "",
-			"openFolder": "",
-			"fromTo": "",
-			"fileName": "",
-			"show": "",
-			"OK": ""
+			"end": "End",
+			"endTooltip": "End of clipping",
+			"begin": "Begin",
+			"beginTooltip": "Begin of clipping",
+			"rangeBeginError": "Begin must be a positive number and smaller than the length of measurement ({{len}} s) and the end ({{end}} s)",
+			"rangeEndError": "End must be a positive number, smaller than the length of measurement ({{len}} s) and greater than the begin ({{begin}} s)"
 		},
 		"merge": {
 			"title": "Merge measurement files"
 		},
 		"edit": {
-			"title": "Edit measurement data"
-		}
+			"title": "Edit measurement data",
+			"identifier": "Identifier",
+			"identifierEditTooltip": "The identifier whose data will be edited",
+			"identifierTooltip": "The identifier that belongs to the occurence",
+			"all": "All",
+			"numberTooltip": "Number",
+			"key": "Key",
+			"keyTooltip": "The key that belongs to the occurence",
+			"name": "Name",
+			"nameTooltip": "The name (type) that belongs to the occurence",
+			"order": "Order",
+			"orderTooltip": "The order that belongs to the occurence",
+			"time": "Time",
+			"timeTooltip": "The time that belongs to the occurence",
+			"remove": "Remove",
+			"add": "Add",
+			"unknownKey": "The given key does not exist",
+			"timeRangeError": "Time needs to be positive and smaller than the length of measurement ({{len}} s)",
+			"unknownIdentifier": "The given identifier does not exist"
+		},
+		"file": "Measurement file",
+		"fileTooltip": "The xlsx or ods file containing the measurement data",
+		"openFile": "Open file",
+		"errorSaving": "Error while saving",
+		"successSave": "Successful save",
+		"timeMU": "s",
+		"lengthOfMeasurement": "Length of measurement",
+		"key": "Key",
+		"occurence": "Occurence",
+		"saveType": "Save type",
+		"saveTypeTooltip": "Type of file to be saved",
+		"drop": "Drop",
+		"save": "Save",
+		"editInProgress": "Edit in progress, you can not leave before dropping or saving",
+		"title": "Postproduction",
+		"leaveConfirm": ""
 	}
 }

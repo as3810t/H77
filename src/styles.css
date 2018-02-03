@@ -19,3 +19,7 @@
 .show .dropdown-menu {
     display: block;
 }
+
+.input-group-insert .input-group-text {
+    border-radius: 0;
+}

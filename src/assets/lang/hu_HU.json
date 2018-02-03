@@ -1,4 +1,5 @@
 {
+	"lang": "Magyar",
 	"settings": {
 		"title": "Beállítások",
 		"loadSettings": "Beállítások betöltése",
@@ -44,7 +45,8 @@
 		"fileNotExists": "A fájl nem létezik, vagy nincs jogosultság az elérésére.",
 		"corruptedVideo": "Hibás fájl vagy nem támogatott fájlformátum.",
 		"saveFileNotWritable": "A beállításfájl nem írható",
-		"successSave": "Sikeres mentés"
+		"successSave": "Sikeres mentés",
+		"leaveConfirm": "A beállítások oldalon elmentetlen változtatások vannak."
 	},
 	"keyboard": {
 		"title": "Billentyűk",
@@ -72,7 +74,8 @@
 		"missingName": "Név nincs megadva",
 		"fileNotExists": "A fájl nem létezik, vagy nincs jogosultság az elérésére.",
 		"saveFileNotWritable": "A billentyűzetfájl nem írható",
-		"successSave": "Sikeres mentés"
+		"successSave": "Sikeres mentés",
+		"leaveConfirm": "A billentyűk oldalon elmentetlen változtatások vannak."
 	},
 	"dialogs": {
 		"result": "Eredmény",
@@ -91,6 +94,7 @@
 		"length": "Kísérlet hossza",
 		"events": "Események",
 		"openFile": "Fájl megnyitása",
+		"openFolder": "Mappa megnyitása",
 		"saveFile": "Fájl mentése",
 		"import": {
 			"title": "Importálás",
@@ -138,6 +142,18 @@
 			"show": "Megtekintés",
 			"showTooltip": "Kattintás a megtekintéshez",
 			"OK": "Rendben"
+		},
+		"override": {
+			"cancel": "Mégse",
+			"override": "Felülírás",
+			"confirmation": "Megerősítés",
+			"confirmationBody": "A megadott nevű fájl már létezik. Biztos felülírja?"
+		},
+		"leaveConfirm": {
+			"no": "Nem",
+			"yes": "Igen",
+			"title": "Biztosan kilép?",
+			"wantToLeave": "Biztosan kilép?"
 		}
 	},
 	"analysis": {
@@ -214,50 +230,71 @@
 		"errorSave": "Hiba a fájl mentése közben",
 		"successSave": "Sikeres mentés",
 		"noName": "Nevet kell adni a fájlnak",
-		"cancel": "Mégse",
-		"override": "Felülírás",
-		"confirmation": "Megerősítés",
-		"comfirmationBody": "A megadott nevű fájl már létezik. Biztos felülírja?",
 		"stopBeforeEdit": "Mérési adatok szerkesztése előtt meg kell állítani az órát",
 		"keyDoesNotExist": "Nem létező billentyűkód",
 		"longerThenLength": "Az idő egy pozitív szám, ami kisebb mint a mérés hossza ({{length}} mp)",
-		"unsavedData": "A mérési adatok nincsenek elmentve"
+		"unsavedData": "A mérési adatok nincsenek elmentve",
+		"title": "Elemzés",
+		"leaveConfirm": "Az elemzés oldalon elmentetlen változtatások vannak, vagy mérés van folyamatban."
 	},
 	"afterworks": {
 		"split": {
-			"title": "Mérés darabolása"
+			"title": "Mérés darabolása",
+			"length": "Hossz",
+			"lengthTooltip": "Milyen hosszú darabokra legyen a mérés felbontva",
+			"pieces": "Darab",
+			"piecesTooltip": "Hány egyenlő darabra legyen a mérés felbontva",
+			"piecesRangeError": "A darabszámnak egy pozitív egész számnak kell lennie",
+			"lengthRangeError": "A hossznak 0 és a mérés hossza ({{len}} mp) közé kell esnie"
 		},
 		"clip": {
 			"title": "Mérésből kivágás",
-			"file": "",
-			"fileTooltip": "",
-			"openFile": "",
-			"lengthOfMeasurement": "",
-			"timeMU": "",
-			"key": "",
-			"occurence": "",
-			"saveType": "",
-			"saveTypeTooltip": "",
-			"drop": "",
-			"save": "",
-			"start": "",
-			"startTooltip": "",
-			"end": "",
-			"endTooltip": "",
-			"successSave": "",
-			"saveFolder": "",
-			"saveFolderTooltip": "",
-			"openFolder": "",
-			"fromTo": "",
-			"fileName": "",
-			"show": "",
-			"OK": ""
+			"end": "Vég",
+			"endTooltip": "Kivágás vége",
+			"begin": "Kezdet",
+			"beginTooltip": "Kivágás kezdete",
+			"rangeBeginError": "A kezdetnek egy pozitív számnak kell lennie, ami kisebb mint a kísérlet hossza ({{len}} mp) és a vég ({{end}} mp)",
+			"rangeEndError": "A végnek egy pozitív számnak kell lennie, ami kisebb mint a kísérlet hossza ({{len}} mp) és nagyobb mint a kezdet ({{begin}} mp)"
 		},
 		"merge": {
 			"title": "Mérési fájlok egyesítése"
 		},
 		"edit": {
-			"title": "Mérési adatok szerkesztése"
-		}
+			"title": "Mérési adatok szerkesztése",
+			"identifier": "Azonosító",
+			"identifierEditTooltip": "Azonosító, aminek az adatai szerkesztve lesznek",
+			"identifierTooltip": "Azonosító, amihez az esemény tartozik",
+			"all": "Minden",
+			"numberTooltip": "Sorszám",
+			"key": "Billentyű",
+			"keyTooltip": "Bekövetkezett esemény billentyű kódja",
+			"name": "Név",
+			"nameTooltip": "Bekövetkezett esemény neve (típusa)",
+			"order": "Sorrend",
+			"orderTooltip": "Bekövetkezett esemény típusának előfordulása",
+			"time": "Időpont",
+			"timeTooltip": "Bekövetkezés időpontja",
+			"remove": "Eltávolítás",
+			"add": "Hozzáadás",
+			"unknownKey": "Nem létező billentyűkód",
+			"timeRangeError": "Az idő egy pozitív szám, ami kisebb mint a mérés hossza ({{len}} mp)",
+			"unknownIdentifier": "Nem létező azonosító"
+		},
+		"file": "Mérés fájl",
+		"fileTooltip": "A mérés adatait tartalmazó xlsx vagy ods fájl",
+		"openFile": "Fájl megnyitása",
+		"errorSaving": "Hiba a mentés folyamán",
+		"successSave": "Sikeres mentés",
+		"timeMU": "mp",
+		"lengthOfMeasurement": "Kísérlet hossza",
+		"key": "Bill.",
+		"occurence": "Esemény",
+		"saveType": "Mentés típusa",
+		"saveTypeTooltip": "A fájl típusa",
+		"drop": "Elvetés",
+		"save": "Mentés",
+		"editInProgress": "Szerkesztés folyamatban, nem lehet kilépni mentés vagy elvetés előtt",
+		"title": "Utómunkálatok",
+		"leaveConfirm": "Az utómunkálatok oldalon elmentetlen változtatások vannak."
 	}
 }

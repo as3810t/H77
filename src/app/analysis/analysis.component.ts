@@ -300,14 +300,7 @@ export class AnalysisComponent {
 		}
 		else {
 			if (window.fs.existsSync(window.path.join(this.settings.folder, this.settings.acronym + this.fileName + '.' + this.fileType))) {
-				if (this.openFileService.showDialog({
-					type: 'question',
-					buttons: [this.translate.instant('analysis.cancel'), this.translate.instant('analysis.override')],
-					defaultId: 0,
-					title: this.translate.instant('analysis.confirmation'),
-					message: this.translate.instant('analysis.confirmationBody'),
-					cancelId: 0
-				}) == 0) return;
+				if (this.openFileService.overrideDialog() == false) return;
 			}
 
 			for (var i = 0; i < this.eventList.length; i++) {

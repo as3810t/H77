@@ -167,7 +167,9 @@
 						<span class="input-group-text">{{ 'analysis.editKey' | translate }}</span>
 					</span>
 					<input type="text" maxlength="1" class="form-control" name="addEventListKey" [(ngModel)]="addEventListKey">
-					<span class="input-group-text" placement="right" ngbTooltip="{{ 'analysis.editTimeTooltip' | translate }}">{{ 'analysis.editTime' | translate }}</span>
+					<span class="input-group-insert" placement="right" ngbTooltip="{{ 'analysis.editTimeTooltip' | translate }}">
+						<span class="input-group-text">{{ 'analysis.editTime' | translate }}</span>
+					</span>
 					<input type="number" min="1" class="form-control" name="addEventListTime" [(ngModel)]="addEventListTime">
 					<span class="input-group-append">
 						<button class="btn btn-secondary" (click)="addToEventList()" placement="top" ngbTooltip="{{ 'analysis.add' | translate }}">+</button>
