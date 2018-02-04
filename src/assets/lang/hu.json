@@ -1,5 +1,4 @@
 {
-	"lang": "Magyar",
 	"settings": {
 		"title": "Beállítások",
 		"loadSettings": "Beállítások betöltése",
@@ -296,5 +295,57 @@
 		"editInProgress": "Szerkesztés folyamatban, nem lehet kilépni mentés vagy elvetés előtt",
 		"title": "Utómunkálatok",
 		"leaveConfirm": "Az utómunkálatok oldalon elmentetlen változtatások vannak."
+	},
+	"lang": "Magyar",
+	"menu": {
+		"file": {
+			"title": "Fájl",
+			"openSettings": "Beállításfájl megnyitása",
+			"openKeys": "Billentyűfájl megnyitása",
+			"saveMeasurement": "Mérés mentése",
+			"restart": "Újraindítás",
+			"exit": "Kilépés"
+		},
+		"actions": {
+			"title": "Műveletek",
+			"newSettings": "Új beállításfájl",
+			"openSettings": "Beállításfájl megnyitása",
+			"saveSettings": "Beállításfájl mentése",
+			"saveAsSettings": "Beállításfájl mentése másként",
+			"newKeys": "Új billentyűfájl",
+			"openKeys": "Billentyűfájl megnyitása",
+			"saveKeys": "Billentyűfájl mentése",
+			"saveAsKeys": "Billentyűfájl mentése másként",
+			"saveMeasurement": "Mérés mentése",
+			"editMeasurement": "Mérési adatok szerkesztése",
+			"splitFile": "Mérés darabolása",
+			"clipFile": "Mérésből kivágás",
+			"mergeFiles": "Mérési fájlok egyesítése",
+			"editFiles": "Mérési adatok szerkesztése"
+		},
+		"analysis": {
+			"title": "Elemzés",
+			"saveMeasurement": "Mérés mentése",
+			"editMeasurement": "Mérési adatok szerkesztése",
+			"showOccurences": "Események mutatása",
+			"showOccurencesInSidebar": "Mérési adatok oldalsávban mutatása",
+			"videoSettings": "Videó konfigurálása"
+		},
+		"other": {
+			"title": "Egyéb",
+			"minimize": "Tálcára",
+			"fullScreen": "Teljes képernyő",
+			"zoomIn": "Nagyítás",
+			"zoomOut": "Kicsinyítés",
+			"zoomReset": "Nagyítás visszaállítása",
+			"developerMode": "Fejlesző mód",
+			"forceReload": "Erőltetett újraindítás",
+			"about": "Névjegy"
+		},
+		"language": {
+			"OK": "Rendben",
+			"changeTitle": "Nyelv változás",
+			"changed": "A nyelvi beállítások megváltoztak. A szoftver újra fog indulni."
+		}
 	}
 }

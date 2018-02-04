@@ -1,5 +1,6 @@
-import { app, BrowserWindow, Menu, MenuItemConstructorOptions } from 'electron';
+import { app, dialog, BrowserWindow, Menu, MenuItemConstructorOptions } from 'electron';
 import { enableLiveReload } from 'electron-compile';
+import { ElectronTranslate } from './translate';
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
 
@@ -8,72 +9,110 @@ if (isDevMode) enableLiveReload();
 let win: Electron.BrowserWindow | null = null;
 let splash: Electron.BrowserWindow | null = null;
 
-const menuTemplate: MenuItemConstructorOptions[] = [
-	{
-		label: 'Fájl',
-		submenu: [
-			{ label: 'Beállításfájl megnyitása', accelerator: 'CmdOrCtrl+O', click: () => { win.webContents.send('openSettingsFile') } },
-			{ label: 'Billentyűfájl megnyitása', accelerator: 'CmdOrCtrl+I', click: () => { win.webContents.send('openKeyboardFile') } },
-			{ type: 'separator' },
-			{ label: 'Mérés mentése', accelerator: 'CmdOrCtrl+S', click: () => { win.webContents.send('saveAnalysis') } },
-			{ type: 'separator' },
-			{ label: 'Újraindítás', role: 'reload' },
-			{ label: 'Kilépés', role: 'quit' }
-		]
-	},
-	{
-		label: 'Műveletek',
-		submenu: [
-			{ label: 'Új beállításfájl', click: () => { win.webContents.send('createSettingsFile') } },
-			{ label: 'Beállításfájl megnyitása', accelerator: 'CmdOrCtrl+O', click: () => { win.webContents.send('openSettingsFile') } },
-			{ type: 'separator' },
-			{ label: 'Beállításfájl mentése', click: () => { win.webContents.send('saveSettingsFile') } },
-			{ label: 'Beállításfájl mentése másként', click: () => { win.webContents.send('saveAsSettingsFile') } },
-			{ type: 'separator' },
-			{ label: 'Új billentyűfájl', click: () => { win.webContents.send('createKeyboardFile') } },
-			{ label: 'Billentyűfájl megnyitása', accelerator: 'CmdOrCtrl+I', click: () => { win.webContents.send('openKeyboardFile') } },
-			{ type: 'separator' },
-			{ label: 'Billentyűfájl mentése', click: () => { win.webContents.send('saveKeyboardFile') } },
-			{ label: 'Billentyűfájl mentése másként', click: () => { win.webContents.send('saveAsKeyboardFile') } },
-			{ type: 'separator' },
-			{ label: 'Mérés mentése', click: () => { win.webContents.send('saveAnalysis') }, accelerator: 'CmdOrCtrl+S' },
-			{ label: 'Mérési adatok szerkesztése', click: () => { win.webContents.send('editAnalysis') } },
-			{ type: 'separator' },
-			{ label: 'Mérés darabolása', click: () => { win.webContents.send('splitFile') } },
-			{ label: 'Mérésből kivágás', click: () => { win.webContents.send('clipFile') } },
-			{ label: 'Mérési fájlok egyesítése', click: () => { win.webContents.send('mergeFiles') } },
-			{ label: 'Mérési adatok szerkesztése', click: () => { win.webContents.send('editFile') } }
-		]
-	},
-	{
-		label: 'Elemzés',
-		submenu: [
-			{ label: 'Mérés mentése', click: () => { win.webContents.send('saveAnalysis') }, accelerator: 'CmdOrCtrl+S' },
-			{ label: 'Mérési adatok szerkesztése', click: () => { win.webContents.send('editAnalysis') } },
-			{ type: 'separator' },
-			{ label: 'Események mutatása', type: 'checkbox', checked: true, click: () => { win.webContents.send('showKeyboardAnalysis') } },
-			{ label: 'Mérési adatok oldalsávban mutatása', type: 'checkbox', checked: false, click: () => { win.webContents.send('showDataAnalysis') } },
-			{ type: 'separator' },
-			{ label: 'Videó konfigurálása', click: () => { win.webContents.send('configureVideo') } }
-		]
-	},
-	{
-		label: 'Egyéb',
-		submenu: [
-			{ label: 'Tálcára', role: 'minimize' },
-			{ label: 'Teljes képernyő', role: 'togglefullscreen' },
-			{ type: 'separator' },
-			{ label: 'Nagyítás', role: 'zoomin', accelerator: 'CmdOrCtrl+Plus' },
-			{ label: 'Kicsinyítés', role: 'zoomout', accelerator: 'CmdOrCtrl+-' },
-			{ label: 'Nagyítás visszaállítása', role: 'resetzoom', accelerator: 'CmdOrCtrl+0' },
-			{ type: 'separator' },
-			{ label: 'Fejlesző mód', role: 'toggledevtools' },
-			{ label: 'Erőltetett újraindítás', role: 'forcereload' },
-			{ type: 'separator' },
-			{ label: 'Névjegy', accelerator: 'CmdOrCtrl+H', click: () => { win.webContents.send('about') } }
-		]
+const translate = new ElectronTranslate({
+	folder: './assets/lang',
+	defaultLang: 'en'
+});
+
+const changeLanguage = async (lang) => {
+	await win.webContents.executeJavaScript(`localStorage.setItem("lang", '${lang}')`);
+	translate.use(lang);
+	dialog.showMessageBox({
+		type: 'info',
+		buttons: [translate.instant('menu.language.OK')],
+		title: translate.instant('menu.language.changeTitle'),
+		message: 'The language settings have been changed! H77+ will reload for changes to take efect.\n\n' + translate.instant('menu.language.changed')
+	});
+	win.reload();
+};
+
+const menuTemplate: () => MenuItemConstructorOptions[] = () => {
+	let template: MenuItemConstructorOptions[] = [
+		{
+			label: translate.instant('menu.file.title'),
+			submenu: [
+				{ label: translate.instant('menu.file.openSettings'), accelerator: 'CmdOrCtrl+O', click: () => { win.webContents.send('openSettingsFile') } },
+				{ label: translate.instant('menu.file.openKeys'), accelerator: 'CmdOrCtrl+I', click: () => { win.webContents.send('openKeyboardFile') } },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.file.saveMeasurement'), accelerator: 'CmdOrCtrl+S', click: () => { win.webContents.send('saveAnalysis') } },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.file.restart'), role: 'reload' },
+				{ label: translate.instant('menu.file.exit'), role: 'quit' }
+			]
+		},
+		{
+			label: translate.instant('menu.actions.title'),
+			submenu: [
+				{ label: translate.instant('menu.actions.newSettings'), click: () => { win.webContents.send('createSettingsFile') } },
+				{ label: translate.instant('menu.actions.openSettings'), accelerator: 'CmdOrCtrl+O', click: () => { win.webContents.send('openSettingsFile') } },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.actions.saveSettings'), click: () => { win.webContents.send('saveSettingsFile') } },
+				{ label: translate.instant('menu.actions.saveAsSettings'), click: () => { win.webContents.send('saveAsSettingsFile') } },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.actions.newKeys'), click: () => { win.webContents.send('createKeyboardFile') } },
+				{ label: translate.instant('menu.actions.openKeys'), accelerator: 'CmdOrCtrl+I', click: () => { win.webContents.send('openKeyboardFile') } },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.actions.saveKeys'), click: () => { win.webContents.send('saveKeyboardFile') } },
+				{ label: translate.instant('menu.actions.saveAsKeys'), click: () => { win.webContents.send('saveAsKeyboardFile') } },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.actions.saveMeasurement'), click: () => { win.webContents.send('saveAnalysis') }, accelerator: 'CmdOrCtrl+S' },
+				{ label: translate.instant('menu.actions.editMeasurement'), click: () => { win.webContents.send('editAnalysis') } },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.actions.splitFile'), click: () => { win.webContents.send('splitFile') } },
+				{ label: translate.instant('menu.actions.clipFile'), click: () => { win.webContents.send('clipFile') } },
+				{ label: translate.instant('menu.actions.mergeFiles'), click: () => { win.webContents.send('mergeFiles') } },
+				{ label: translate.instant('menu.actions.editFile'), click: () => { win.webContents.send('editFile') } }
+			]
+		},
+		{
+			label: translate.instant('menu.analysis.title'),
+			submenu: [
+				{ label: translate.instant('menu.analysis.saveMeasurement'), click: () => { win.webContents.send('saveAnalysis') }, accelerator: 'CmdOrCtrl+S' },
+				{ label: translate.instant('menu.analysis.editMeasurement'), click: () => { win.webContents.send('editAnalysis') } },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.analysis.showOccurences'), type: 'checkbox', checked: true, click: () => { win.webContents.send('showKeyboardAnalysis') } },
+				{ label: translate.instant('menu.analysis.showOccurencesInSidebar'), type: 'checkbox', checked: false, click: () => { win.webContents.send('showDataAnalysis') } },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.analysis.videoSettings'), click: () => { win.webContents.send('configureVideo') } }
+			]
+		},
+		{
+			label: translate.instant('menu.other.title'),
+			submenu: [
+				{ label: translate.instant('menu.other.minimize'), role: 'minimize' },
+				{ label: translate.instant('menu.other.fullScreen'), role: 'togglefullscreen' },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.other.zoomIn'), role: 'zoomin', accelerator: 'CmdOrCtrl+Plus' },
+				{ label: translate.instant('menu.other.zoomOut'), role: 'zoomout', accelerator: 'CmdOrCtrl+-' },
+				{ label: translate.instant('menu.other.zoomReset'), role: 'resetzoom', accelerator: 'CmdOrCtrl+0' },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.other.developerMode'), role: 'toggledevtools' },
+				{ label: translate.instant('menu.other.forceReload'), role: 'forcereload' },
+				{ type: 'separator' },
+				{ label: translate.instant('menu.other.about'), accelerator: 'CmdOrCtrl+H', click: () => { win.webContents.send('about') } }
+			]
+		}
+	];
+
+	let languages = translate.getLanguages();
+	languages.sort((a, b) => { return a.name < b.name ? -1 : 1; });
+	let langMenu = [];
+	for (let lang of languages) {
+		langMenu.push({
+			label: lang.name,
+			type: 'radio',
+			checked: lang.code == translate.getCurrentLanguage(),
+			click: () => { changeLanguage(lang.code); }
+		});
 	}
-];
+
+	template.push({
+		label: 'Language',
+		submenu: langMenu
+	});
+
+	return template;
+}
 
 const createWindow = async () => {
 	win = new BrowserWindow({
@@ -102,8 +141,11 @@ const createWindow = async () => {
 		win.webContents.openDevTools();
 	}
 
-	win.webContents.on('did-finish-load', () => {
-		Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
+	win.webContents.on('did-finish-load', async () => {
+		const lang = await win.webContents.executeJavaScript('localStorage.getItem("lang")') || 'en';
+		translate.use(lang);
+
+		Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate()));
 	});
 
 	win.once('ready-to-show', () => {

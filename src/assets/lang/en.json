@@ -1,5 +1,4 @@
 {
-	"lang": "English",
 	"settings": {
 		"title": "Settings",
 		"loadSettings": "Load settings",
@@ -296,5 +295,57 @@
 		"editInProgress": "Edit in progress, you can not leave before dropping or saving",
 		"title": "Postproduction",
 		"leaveConfirm": ""
+	},
+	"lang": "English",
+	"menu": {
+		"file": {
+			"title": "File",
+			"openSettings": "Open settings file",
+			"openKeys": "Open keys file",
+			"saveMeasurement": "Save measurement",
+			"restart": "Restart",
+			"exit": "Exit"
+		},
+		"actions": {
+			"title": "Actions",
+			"newSettings": "New settings file",
+			"openSettings": "Open settings file",
+			"saveSettings": "Save settings file",
+			"saveAsSettings": "Save settings file as",
+			"newKeys": "New keys file",
+			"openKeys": "Open keys file",
+			"saveKeys": "Save keys file",
+			"saveAsKeys": "Save keys file as",
+			"saveMeasurement": "Save measurement",
+			"editMeasurement": "Edit measurement data",
+			"splitFile": "Split measurement file",
+			"clipFile": "Clip from measurement file",
+			"mergeFiles": "Merge measurement files",
+			"editFiles": "Edit measurement file"
+		},
+		"analysis": {
+			"title": "Analysis",
+			"saveMeasurement": "Save measurement",
+			"editMeasurement": "Edit measurement data",
+			"showOccurences": "Show occurences",
+			"showOccurencesInSidebar": "Show occurences in sidebar",
+			"videoSettings": "Video settings"
+		},
+		"other": {
+			"title": "Other",
+			"minimize": "Minimize",
+			"fullScreen": "Fullscreen",
+			"zoomIn": "Zoom in",
+			"zoomOut": "Zoom out",
+			"zoomReset": "Reset zoom",
+			"developerMode": "Developer mode",
+			"forceReload": "Force restart",
+			"about": "About"
+		},
+		"language": {
+			"OK": "OK",
+			"changeTitle": "Language changed",
+			"changed": " "
+		}
 	}
 }

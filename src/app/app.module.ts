@@ -2,9 +2,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AngularTranslateLoader } from './../translate';
 
 import { AppComponent } from './app.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -24,8 +24,11 @@ import { ImportService } from './dialogs/import/import.service';
 import { SaveSuccessService } from './dialogs/saveSuccess/saveSuccess.service';
 import { TranslateService } from '@ngx-translate/core';
 
-export function HttpLoaderFactory(http: HttpClient) {
-	return new TranslateHttpLoader(http, './assets/lang/', '.json');
+export function AngularLoaderFactory() {
+	return new AngularTranslateLoader({
+		folder: './assets/lang',
+		ext: '.json'
+	});
 }
 
 @NgModule({
@@ -54,8 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
-				useFactory: HttpLoaderFactory,
-				deps: [HttpClient]
+				useFactory: AngularLoaderFactory
 			},
 			useDefaultLang: true
 		})
