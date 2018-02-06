@@ -26,7 +26,7 @@ export class AppComponent {
 		private translate: TranslateService
 	) {
 		this.translate.setDefaultLang('en_US');
-		const lang = require('os-locale').sync();
+		const lang = window.navigator.language;
 		const langSet = localStorage.getItem('lang');
 		this.translate.use(langSet || lang || 'en_US');
 

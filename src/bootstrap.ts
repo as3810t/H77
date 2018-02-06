@@ -3,9 +3,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 
-const isDevMode = process.execPath.match(/[\\/]electron/);
+declare var window: any;
 
-if(!isDevMode) {
+const isDevMode = window.execPath.match(/[\\/]electron/);
+
+if (!isDevMode) {
 	enableProdMode();
 }
 

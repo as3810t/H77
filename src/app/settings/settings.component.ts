@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ApplicationRef, ViewChild, NgZone } from '@angular/core';
+import { Component, Output, EventEmitter, ApplicationRef, ViewChild, NgZone } from '@angular/core';
 import { OpenFileService } from './../dialogs/openFile.service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -157,7 +157,7 @@ export class SettingsComponent {
 			{ name: this.translate.instant('settings.allFiles'), extensions: ['*'] }
 		], ['openFile']).then((name) => {
 			this.openFile(name);
-		}).catch((e) => { });
+		}).catch(() => { });
 	}
 
 	checkSettings(settings) {
@@ -236,7 +236,7 @@ export class SettingsComponent {
 		window.electron.shell.openItem(this.settings.folder);
 	}
 
-	chooseVideo(e) {
+	chooseVideo() {
 		this.errorMessage = '';
 		this.openFileService.openFile([
 			{ name: this.translate.instant('settings.videoFile'), extensions: ['mp4', 'avi', 'ogv', 'mov', '3gp', 'webm'] },
@@ -253,7 +253,7 @@ export class SettingsComponent {
 					}
 				}, 200);
 			});
-		}).catch((e) => { });
+		}).catch(() => { });
 	}
 
 	openVideo(name, callback?: any) {

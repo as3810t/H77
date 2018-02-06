@@ -189,7 +189,7 @@ export class EditComponent {
 		this.recalculateEventList();
 	}
 
-	addToEventList(i) {
+	addToEventList() {
 		this.eventList.push({
 			key: this.addEventListKey,
 			time: this.addEventListTime,

@@ -1,0 +1,32 @@
+{
+	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+	"project": {
+		"name": "h77"
+	},
+	"apps": [{
+		"root": "src",
+		"outDir": "dist",
+		"assets": [
+			"assets",
+			"index.ts",
+			"translate.ts"
+		],
+		"index": "index.html",
+		"main": "bootstrap.ts",
+		"tsconfig": "../tsconfig.json",
+		"stylesUrls": [],
+		"styles": [
+			"../node_modules/bootstrap/dist/css/bootstrap.css",
+			"styles.css"
+		],
+		"scripts": [
+			"../node_modules/zone.js/dist/zone.js",
+			"../node_modules/reflect-metadata/Reflect.js",
+			"globals.js"
+		]
+	}],
+	"defaults": {
+		"styleExt": "css",
+		"component": {}
+	}
+}

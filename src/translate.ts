@@ -4,6 +4,8 @@ const path = require('path');
 import { TranslateLoader } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+declare var window: any;
+
 function languageEquiv(lang) {
 	if (lang.substring(0, 2) == 'en') return 'en';
 	else if (lang.substring(0, 2) == 'de') return 'de';
@@ -26,8 +28,8 @@ export class AngularTranslateLoader implements TranslateLoader {
 
 	getTranslation(lang: string): Observable<any> {
 		lang = languageEquiv(lang);
-		let fileName = path.join(__dirname, this.folder, lang) + this.ext;
-		return Observable.of(JSON.parse(fs.readFileSync(fileName)));
+		let fileName = path.join(window.__dirname, this.folder, lang) + this.ext;
+		return Observable.of(JSON.parse(window.fs.readFileSync(fileName)));
 	}
 }
 
