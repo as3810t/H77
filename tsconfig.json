@@ -19,7 +19,13 @@
 		"pretty": true,
 		"target": "es2015",
 		"outDir": "dist",
-		"emitDecoratorMetadata": true
+		"emitDecoratorMetadata": true,
+		"lib": [
+			"ES2015",
+			"DOM",
+			"ScriptHost",
+			"esnext.asynciterable"
+		]
 	},
 	"formatCodeOptions": {
 		"indentSize": 4,
