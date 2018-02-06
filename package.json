@@ -30,6 +30,17 @@
 					"zip"
 				]
 			},
+			"publish_targets": {
+				"win32": [
+					"github"
+				],
+				"darwin": [
+					"github"
+				],
+				"linux": [
+					"github"
+				]
+			},
 			"electronPackagerConfig": {
 				"packageManager": "npm",
 				"asar": true,
@@ -39,11 +50,16 @@
 				"name": "H77",
 				"setupIcon": "./dist/assets/favicon.ico"
 			},
-			"electronInstallerDebian": {},
+			"electronInstallerDebian": {
+				"icon": "./dist/assets/favicon.ico",
+				"categories": [
+					"Utility"
+				]
+			},
 			"electronInstallerRedhat": {},
 			"github_repository": {
-				"owner": "",
-				"name": ""
+				"owner": "as3810t",
+				"name": "H77"
 			},
 			"windowsStoreConfig": {
 				"packageName": "",
