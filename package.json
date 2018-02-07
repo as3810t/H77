@@ -103,6 +103,6 @@
 		"electron-forge": "^4.2.0",
 		"electron-prebuilt-compile": "1.7.11",
 		"tslint": "^4.5.1",
-		"typescript": "^2.6.2"
+		"typescript": "2.6.2"
 	}
 }
