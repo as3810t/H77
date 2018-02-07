@@ -27,5 +27,4 @@ test_script:
 
 build_script:
   - ng build --aot
-  - electron-forge publish --arch=x64
   - electron-forge publish --arch=ia32
