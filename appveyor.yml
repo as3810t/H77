@@ -13,6 +13,7 @@ install:
   - npm install
   - npm install -g @angular/cli
   - npm install -g electron-forge
+  - npm install typescript@'>=2.4.2 <2.7.0'
 
 # Post-install test scripts.
 test_script:
