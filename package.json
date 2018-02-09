@@ -1,7 +1,7 @@
 {
 	"name": "h77",
 	"productName": "h77",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "H77+ video analysis software",
 	"main": "dist/index.ts",
 	"scripts": {

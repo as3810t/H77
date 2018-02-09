@@ -267,7 +267,7 @@ export class SettingsComponent {
 				try {
 					var arrayBuffer = new Uint8Array(buffer).buffer;
 					var blob = new Blob([new Uint8Array(arrayBuffer)], { type: MIME[window.require('path').parse(name).ext] });
-					this.player.nativeElement.src = name;
+					this.player.nativeElement.src = window.URL.createObjectURL(blob);
 
 					callback();
 				}

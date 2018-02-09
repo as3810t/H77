@@ -4,6 +4,7 @@ environment:
 
 artifacts:
   - path: 'out\make\*'
+  - path: 'out\make\squirrel.windows\*'
 
 # Install scripts. (runs after repo cloning)
 install:
@@ -28,4 +29,4 @@ build_script:
   - electron-forge make --arch=ia32
 
 deploy_script:
-  - electron-forge publish --arch=ia32
+  - electron-forge publish --arch=ia32 --skip-package
